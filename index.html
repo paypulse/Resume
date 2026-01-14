@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신민정 - 백엔드 개발자</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Malgun Gothic', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .header .title {
+            font-size: 1.3em;
+            opacity: 0.95;
+            margin-bottom: 25px;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.95em;
+        }
+        
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            transition: border-color 0.3s;
+        }
+        
+        .contact-item a:hover {
+            border-bottom-color: white;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 1.5em;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            font-weight: 600;
+        }
+        
+        .intro {
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: #555;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .skill-category {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 3px solid #764ba2;
+        }
+        
+        .skill-category h3 {
+            color: #764ba2;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+        
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .skill-tag {
+            background: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            color: #555;
+            border: 1px solid #ddd;
+        }
+        
+        .experience-item {
+            margin-bottom: 35px;
+            padding-bottom: 35px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .experience-item:last-child {
+            border-bottom: none;
+        }
+        
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .company-info h3 {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .role {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+        
+        .period {
+            color: #777;
+            font-size: 0.95em;
+            text-align: right;
+        }
+        
+        .project-section {
+            margin-top: 15px;
+        }
+        
+        .project-title {
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 8px;
+            font-size: 1.05em;
+        }
+        
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+        
+        .tech-badge {
+            background: #e7e9fc;
+            color: #667eea;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+        
+        .achievements {
+            list-style: none;
+            margin-top: 12px;
+        }
+        
+        .achievements li {
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 8px;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .achievements li:before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .education-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .education-item h3 {
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .education-details {
+            color: #666;
+            font-size: 0.95em;
+        }
+        
+        .print-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            font-size: 1em;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .print-button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+            }
+            .print-button {
+                display: none;
+            }
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 30px 20px;
+            }
+            .header h1 {
+                font-size: 2em;
+            }
+            .content {
+                padding: 20px;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+            .experience-header {
+                flex-direction: column;
+            }
+            .period {
+                text-align: left;
+                margin-top: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>신민정</h1>
+            <div class="title">Backend Developer | 7년차</div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📧</span>
+                    <a href="mailto:smjedu89@gmail.com">smjedu89@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <span>📱</span>
+                    <span>010-5153-2163</span>
+                </div>
+                <div class="contact-item">
+                    <span>🔗</span>
+                    <a href="https://github.com/paypulse" target="_blank">github.com/paypulse</a>
+                </div>
+                <div class="contact-item">
+                    <span>📝</span>
+                    <a href="https://paypulse.github.io/" target="_blank">paypulse.github.io</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="content">
+            <section class="section">
+                <div class="intro">
+                    <strong>7년간의 실무 경험을 바탕으로 백엔드 시스템 설계 및 운영에 강점을 가진 개발자입니다.</strong><br>
+                    Spring Boot 기반의 REST API 설계, JPA/QueryDSL을 활용한 데이터 처리, AWS 인프라 구축 및 CI/CD 파이프라인 구성 경험을 보유하고 있습니다. 레거시 시스템 분석 및 개선, 멀티 모듈 아키텍처 설계 등 시스템 확장성을 고려한 개발을 지향합니다.
+                </div>
+            </section>
+            
+            <section class="section">
+                <h2 class="section-title">핵심 역량</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Backend</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Java</span>
+                            <span class="skill-tag">Kotlin</span>
+                            <span class="skill-tag">Spring Boot</span>
+                            <span class="skill-tag">Spring Framework</span>
+                            <span class="skill-tag">JPA</span>
+                            <span class="skill-tag">QueryDSL</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>Database</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">MySQL</span>
+                            <span class="skill-tag">PostgreSQL</span>
+                            <span class="skill-tag">MSSQL</span>
+                            <span class="skill-tag">Oracle</span>
+                            <span class="skill-tag">Redis</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>DevOps & Infra</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">AWS</span>
+                            <span class="skill-tag">Docker</span>
+                            <span class="skill-tag">Jenkins</span>
+                            <span class="skill-tag">Git</span>
+                            <span class="skill-tag">GitLab</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-category">
+                        <h3>Frontend</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Vue.js</span>
+                            <span class="skill-tag">JSP</span>
+                            <span class="skill-tag">JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="section">
+                <h2 class="section-title">주요 경력</h2>
+                
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div class="company-info">
+                            <h3>(주)그립 GRIB</h3>
+                            <div class="role">백엔드 개발/운영 (대리)</div>
+                        </div>
+                        <div class="period">
+                            2025.02 - 현재<br>
+                            <strong>재직 중</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="project-section">
+                        <div class="project-title">링스쿨 백엔드 개발 및 운영</div>
+                        <div class="tech-stack">
+                            <span class="tech-badge">Spring Boot</span>
+                            <span class="tech-badge">JPA</span>
+                            <span class="tech-badge">QueryDSL</span>
+                            <span class="tech-badge">REST API</span>
+                        </div>
+                        <ul class="achievements">
+                            <li>사용자 상태 관리, 인증/권한 시스템 서버 로직 구현</li>
+                            <li>JPA/QueryDSL 기반 데이터 조회 및 수정 로직 개발</li>
+                            <li>운영 환경 장애 이슈 분석 및 실시간 대응</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="project-section">
+                        <div class="project-title">CCTV/영상 관제 시스템 분석 및 연동</div>
+                        <div class="tech-stack">
+                            <span class="tech-badge">CCTV/NVR</span>
+                            <span class="tech-badge">Video Streaming</span>
+                            <span class="tech-badge">System Integration</span>
+                        </div>
+                        <ul class="achievements">
+                            <li>CCTV/NVR 기반 영상 스트리밍 구조 분석 및 개선 방향 검토</li>
+                            <li>영상 데이터 파이프라인(촬영→전송→서버 처리) 구조 설계</li>
+                            <li>관제 시스템 백엔드 역할 정의 및 API 연계 구조 설계</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="project-section">
+                        <div class="project-title">YOLO 기반 객체 탐지 R&D</div>
+                        <div class="tech-stack">
+                            <span class="tech-badge">YOLO</span>
+                            <span class="tech-badge">AI/ML</span>
+                            <span class="tech-badge">PoC</span>
+                        </div>
+                        <ul class="achievements">
+                            <li>CCTV 영상 데이터 기반 YOLO 객체 탐지 기술 연구 및 검토</li>
+                            <li>영상 분석 파이프라인 구조 설계 및 실서비스 적용 가능성 검토</li>
+                            <li>AI 분석 결과의 서비스 연계를 위한 데이터 모델 설계</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="project-section">
+                        <div class="project-title">시스템 아키텍처 개선</div>
+                        <ul class="achievements">
+                            <li>Spring Boot 멀티 모듈 구조(Auth/API/AI 분리) 설계</li>
+                            <li>레거시 시스템 분석 및 문서화되지 않은 코드 리팩토링</li>
+                            <li>단기 운영과 장기 확장성을 고려한 아키텍처 개선 방안 제안</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div class="company-info">
+                            <h3>(주)모카커뮤니케이션</h3>
+                            <div class="role">백엔드 개발/운영 (매니저)</div>
+                        </div>
+                        <div class="period">
+                            2024.04 - 2024.12<br>
+                            <strong>8개월</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="project-section">
+                        <div class="project-title">베리콘 서비스 신규 개발</div>
+                        <div class="tech-stack">
+                            <span class="tech-badge">Spring Boot</span>
+                            <span class="tech-badge">AWS S3</span>
+                            <span class="tech-badge">Jenkins</span>
+                            <span class="tech-badge">Batch</span>
+                        </div>
+                        <ul class="achievements">
+                            <li>어드민 시스템 로그인 API 및 계정 관리 테이블 설계</li>
+                            <li>상품 관리(Best 상품, 인기 상품, 브랜드 모음전) API 개발</li>
+                            <li>견적 계산기 및 견적 보관함 핵심 비즈니스 로직 구현</li>
+                            <li>Jenkins 기반 Batch CI/CD 파이프라인 구축 및 운영</li>
+                            <li>외부 연동 API 테스트 결과 이력 관리 시스템 구축</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="project-section">
+                        <div class="project-title">인프라 및 운영 효율화</div>
+                        <ul class="achievements">
+                            <li>AWS S3 기반 로그 백업 자동화 쉘 스크립트 개발</li>
+                            <li>멀티 인스턴스 기반 Web Server 인프라 구성</li>
+                            <li>MOS(운영 서비스) 개인정보 파기, 강제 오류 처리 등 관리 기능 개발</li>
+                            <li>Java 및 Spring 버전 업그레이드로 시스템 현대화</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div class="company-info">
+                            <h3>(주)클릭앤터치</h3>
+                            <div class="role">풀스택 개발 (대리)</div>
+                        </div>
+                        <div class="period">
+                            2022.07 - 2023.07<br>
+                            <strong>1년</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="project-section">
+                        <div class="project-title">SK-GAS 사내 평가 시스템</div>
+                        <div class="tech-stack">
+                            <span class="tech-badge">Spring Boot</span>
+                            <span class="tech-badge">MSSQL</span>
+                            <span class="tech-badge">GitLab</span>
+                            <span class="tech-badge">JSP</span>
+                        </div>
+                        <ul class="achievements">
+                            <li>분기별 사내 평가 시스템(TDS1/TDS2/TDS3) Admin 및 사용자 화면 개발</li>
+                            <li>대용량 평가 결과 파일 다운로드 기능 설계 및 구현</li>
+                            <li>CDP 직무 역량 매칭 데이터 자동화 시스템 구축</li>
+                            <li>GitLab 기반 사내 형상 관리 체계 구축</li>
+                            <li>Swagger 기반 API 문서화 및 운영계-개발계 Git 동기화</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="project-section">
+                        <div class="project-title">E-KORON 시스템</div>
+                        <div class="tech-stack">
+                            <span class="tech-badge">Spring Boot</span>
+                            <span class="tech-badge">MySQL</span>
+                        </div>
+                        <ul class="achievements">
+                            <li>골프 정품 인증 관리 Admin 메뉴 설계 및 개발</li>
+                            <li>DB 테이블 설계 및 REST API 구현</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div class="company-info">
+                            <h3>(주)폴리엇</h3>
+                            <div class="role">풀스택 개발 (대리)</div>
+                        </div>
+                        <div class="period">
+                            2021.11 - 2022.06<br>
+                            <strong>6개월</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="project-section">
+                        <div class="project-title">LSC 글로벌 서비스 운영</div>
+                        <div class="tech-stack">
+                            <span class="tech-badge">Spring Framework</span>
+                            <span class="tech-badge">PostgreSQL</span>
+                            <span class="tech-badge">Redis</span>
+                            <span class="tech-badge">JEUS</span>
+                        </div>
+                        <ul class="achievements">
+                            <li>LSC 한국/중국 API 서비스 운영 및 글로벌 환경 대응</li>
+                            <li>Redis 및 JEUS 서버 구축 및 서비스 적용</li>
+                            <li>Log4j 보안 취약점 분석 및 긴급 패치 적용</li>
+                            <li>레거시 프로젝트 구조 분석 및 유지보수성 개선</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div class="company-info">
+                            <h3>(주)에듀랩</h3>
+                            <div class="role">풀스택 개발 (대리)</div>
+                        </div>
+                        <div class="period">
+                            2021.06 - 2021.11<br>
+                            <strong>5개월</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="project-section">
+                        <div class="project-title">교과 토탈 CRM 구축</div>
+                        <div class="tech-stack">
+                            <span class="tech-badge">Spring Boot</span>
+                            <span class="tech-badge">Vue.js</span>
+                            <span class="tech-badge">Spring Security</span>
+                            <span class="tech-badge">JWT</span>
+                            <span class="tech-badge">Docker</span>
+                        </div>
+                        <ul class="achievements">
+                            <li>Vue.js 기반 화면 Component 구조 설계 및 UI 아키텍처 구성</li>
+                            <li>JWT 기반 Spring Security 로그인 인증 시스템 구현</li>
+                            <li>Nexus3 기반 사내 Maven Repository 구축</li>
+                            <li>On-Premise Docker 시스템 구축 및 컨테이너 기반 배포 환경 구성</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div class="company-info">
+                            <h3>(주)에듀인소프트</h3>
+                            <div class="role">풀스택 개발 (대리)</div>
+                        </div>
+                        <div class="period">
+                            2019.09 - 2020.08<br>
+                            <strong>1년</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="project-section">
+                        <div class="project-title">학교 급식 시스템</div>
+                        <div class="tech-stack">
+                            <span class="tech-badge">eGovFramework</span>
+                            <span class="tech-badge">PostgreSQL</span>
+                            <span class="tech-badge">JSP</span>
+                        </div>
+                        <ul class="achievements">
+                            <li>학교 급식 시스템 Admin 및 사용자 전체 메뉴 화면 구현</li>
+                            <li>전체 메뉴 API 설계 및 구현</li>
+                            <li>시스템 구축 후 운영 및 유지보수</li>
+                            <li>사용자 대상 급식 시스템 동영상 매뉴얼 제작</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="project-section">
+                        <div class="project-title">규제 샌드박스 Admin 시스템</div>
+                        <div class="tech-stack">
+                            <span class="tech-badge">eGovFramework</span>
+                            <span class="tech-badge">TIBERO</span>
+                            <span class="tech-badge">PLupload</span>
+                        </div>
+                        <ul class="achievements">
+                            <li>정부 규제 샌드박스 제도 신청 Admin 메뉴 화면 및 API 구현</li>
+                            <li>PLupload 플러그인 기반 대용량 파일 업로드 기능 개발</li>
+                            <li>다중 파일 업로드 기능 설계 및 구현</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="project-section">
+                        <div class="project-title">기타 프로젝트</div>
+                        <ul class="achievements">
+                            <li>교육 수강 신청 사이트 JqGrid 기반 화면 유지보수</li>
+                            <li>아르떼 프로젝트 Oracle → PostgreSQL 쿼리 마이그레이션</li>
+                            <li>Nexacro14, MyBuilder 플랫폼 기술 학습</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div class="company-info">
+                            <h3>(주)월드와이즈소프트</h3>
+                            <div class="role">SI 파견 (대리)</div>
+                        </div>
+                        <div class="period">
+                            2018.07 - 2019.01<br>
+                            <strong>7개월</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="project-section">
+                        <div class="project-title">대흥정보 - 부천시 주차 관리 시스템(TPMS)</div>
+                        <ul class="achievements">
+                            <li>Daum 지도 API 연동 및 주차 위치 정보 조회 페이지 구현</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="project-section">
+                        <div class="project-title">CJ제일제당 - 온더마켓 챗봇</div>
+                        <ul class="achievements">
+                            <li>챗봇 서비스 운영 및 화면 기능 개발</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div class="company-info">
+                            <h3>(주)스포빌</h3>
+                            <div class="role">화면 개발 (사원)</div>
+                        </div>
+                        <div class="period">
+                            2015.12 - 2016.04<br>
+                            <strong>5개월</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="project-section">
+                        <div class="project-title">스포플레이 - 스포츠 베팅 게임</div>
+                        <div class="tech-stack">
+                            <span class="tech-badge">Delphi 7.0</span>
+                            <span class="tech-badge">DirectX 9.0</span>
+                        </div>
+                        <ul class="achievements">
+                            <li>PC 클라이언트 운영 및 유지보수</li>
+                            <li>언어팩 작업 및 UI 수정</li>
+                            <li>주기적 배포 작업 수행</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div class="company-info">
+                            <h3>(주)큐비트시큐리티</h3>
+                            <div class="role">화면 개발 (사원)</div>
+                        </div>
+                        <div class="period">
+                            2015.08 - 2016.01<br>
+                            <strong>6개월</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="project-section">
+                        <div class="project-title">PLURA - 모바일 알림 서비스</div>
+                        <div class="tech-stack">
+                            <span class="tech-badge">PhoneGap</span>
+                            <span class="tech-badge">HTML/CSS/JS</span>
+                        </div>
+                        <ul class="achievements">
+                            <li>PhoneGap 기반 모바일 알림 서비스 앱 개발</li>
+                            <li>회사 브로셔 영문 번역 작업</li>
+                            <li>beGlobal 2015 세미나 참석 및 개발 앱 홍보</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div class="company-info">
+                            <h3>(주)아이벡스트</h3>
+                            <div class="role">게임 개발 (사원)</div>
+                        </div>
+                        <div class="period">
+                            2013.01 - 2013.05<br>
+                            <strong>5개월</strong>
+                        </div>
+                    </div>
+                    
+                    <div class="project-section">
+                        <div class="project-title">구구팡 - 학습용 게임</div>
+                        <div class="tech-stack">
+                            <span class="tech-badge">Unity3D</span>
+                            <span class="tech-badge">C#</span>
+                            <span class="tech-badge">NGUI</span>
+                        </div>
+                        <ul class="achievements">
+                            <li>학습용 게임 개발 참여 및 게임 이펙트/애니메이션 추가</li>
+                            <li>게임 전용 폰트 개발</li>
+                            <li>NGUI 기반 UI 구성</li>
+                            <li>Android 빌드 및 배포 수행</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="section">
+                <h2 class="section-title">단기 프로젝트</h2>
+                
+                <div class="project-section">
+                    <div class="project-title">(주)지니웍스 - Mallpie 서비스 (2개월, 2023.11~2024.01)</div>
+                    <ul class="achievements">
+                        <li>Partner/Manager Admin 상품 등록·조회 API 및 대량 등록 기능 개발</li>
+                        <li>Spring Batch 기반 결제 취소 Mail/카카오 메시지 전송 배치 구현</li>
+                    </ul>
+                </div>
+                
+                <div class="project-section">
+                    <div class="project-title">(주)투라인코드 - SK하이닉스 Pipeline 서비스 (3개월, 2021.01~03)</div>
+                    <ul class="achievements">
+                        <li>Docker 기반 Pipeline 서비스 구조 분석 및 운영</li>
+                    </ul>
+                </div>
+                
+                <div class="project-section">
+                    <div class="project-title">(주)이감 - 계약 관리 시스템 (2개월, 2020.10~12)</div>
+                    <ul class="achievements">
+                        <li>Spring REST Docs 기반 TDD 방식 API 개발 및 문서화</li>
+                        <li>Vue.js 기반 계약 관리 화면 구현</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section class="section">
+                <h2 class="section-title">학력 및 자격</h2>
+                <div class="education-item">
+                    <h3>가천대학교 컴퓨터미디어공학과 (학사)</h3>
+                    <div class="education-details">
+                        졸업: 2012년 2월 | 소재지: 경기도 성남<br>
+                        컴퓨터공학 기본 학과목 전공 이수
+                    </div>
+                </div>
+                
+                <div class="education-item">
+                    <h3>정보처리기사</h3>
+                    <div class="education-details">
+                        취득일: 2015.05.08 | 자격번호: 15201021028F
+                    </div>
+                </div>
+                
+                <div class="education-item">
+                    <h3>게임 개발 교육 과정 (2015.03~07)</h3>
+                    <div class="education-details">
+                        C/C++, WinApi, DirectX 9.0, Unity3D 기초 교육 이수
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    
+    <button class="print-button" onclick="window.print()">📄 PDF 저장</button>
+</body>
+</html>
