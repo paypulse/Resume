@@ -463,7 +463,7 @@
                 events.forEach(event => {
                     if (event.type === 'PushEvent') {
                         const date = event.created_at.split('T')[0];
-                        const commits = event.payload.commits?.length || 0;
+                        const commits = event.payload.commits?.length ?? 1;
                         contributions[date] = (contributions[date] || 0) + commits;
                         totalCommits += commits;
                     }
