@@ -444,6 +444,14 @@
         }
     </style>
     <script>
+
+        // 날짜 변환 함수 
+        function toKstDateString(date) {
+            const d = new Date(date);
+            d.setHours(d.getHours() + 9);
+            return d.toISOString().split('T')[0];
+        }
+
         // GitHub 활동 데이터 가져오기
         async function loadGitHubActivity() {
             const username = 'paypulse';
@@ -462,15 +470,18 @@
                 
                 events.forEach(event => {
                     if (event.type === 'PushEvent') {
-                        const date = event.created_at.split('T')[0];
-                        const commits = event.payload.commits?.length ?? 1;
+                        const date = toKstDateString(event.created_at);
+                        const commits = event.payload?.commits?.length ?? 1;
+
                         contributions[date] = (contributions[date] || 0) + commits;
                         totalCommits += commits;
                     }
                 });
                 
                 // 통계 계산
-                const thisYear = Object.values(contributions).reduce((a, b) => a + b, 0);
+                const thisYear = Object.entries(contributions)
+                                    .filter(([date]) => date.startsWith(new Date().getFullYear().toString()))
+                                    .reduce((sum, [, count]) => sum + count, 0);
                 const streak = calculateStreak(contributions);
                 
                 // 통계 업데이트
@@ -490,28 +501,38 @@
         }
         
         function calculateStreak(contributions) {
-            const dates = Object.keys(contributions).sort();
-            let currentStreak = 0;
-            let longestStreak = 0;
-            let tempStreak = 0;
-            
-            const today = new Date().toISOString().split('T')[0];
-            
-            for (let i = dates.length - 1; i >= 0; i--) {
-                if (contributions[dates[i]] > 0) {
-                    tempStreak++;
-                    longestStreak = Math.max(longestStreak, tempStreak);
-                    if (dates[i] === today || i === dates.length - 1) {
-                        currentStreak = tempStreak;
-                    }
+            const dates = Object.keys(contributions)
+                .filter(d => contributions[d] > 0)
+                .sort();
+
+            if (dates.length === 0) {
+                return { current: 0, longest: 0 };
+            }
+
+            let longest = 1;
+            let streak = 1;
+
+            for (let i = 1; i < dates.length; i++) {
+                const prev = new Date(dates[i - 1]);
+                const curr = new Date(dates[i]);
+
+                const diffDays = (curr - prev) / (1000 * 60 * 60 * 24);
+
+                if (diffDays === 1) {
+                streak++;
+                longest = Math.max(longest, streak);
                 } else {
-                    if (i === dates.length - 1) currentStreak = 0;
-                    tempStreak = 0;
+                streak = 1;
                 }
             }
-            
-            return { current: currentStreak, longest: longestStreak };
+
+            const today = toKstDateString(new Date());
+            const lastDate = dates[dates.length - 1];
+            const current = lastDate === today ? streak : 0;
+
+            return { current, longest };
         }
+
         
         function createContributionGraph(contributions, startDate, endDate) {
             const graphContainer = document.getElementById('contribution-graph');
@@ -574,7 +595,7 @@
                     }
                 }
                 
-                const dateStr = currentDate.toISOString().split('T')[0];
+                const dateStr =  toKstDateString(currentDate);
                 const count = contributions[dateStr] || 0;
                 const level = count === 0 ? 0 : Math.min(4, Math.ceil(count / 2));
                 
