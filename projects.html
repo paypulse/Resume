@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>사전 인터뷰</title>
+    <title>프로젝트 포트폴리오</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
     <style>
         * {
@@ -72,51 +72,120 @@
             overflow-x: auto;
         }
 
-        .convention-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+        .convention-detail {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
         }
 
-        .convention-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 25px;
+        .convention-block {
+            background: #f8f9fa;
+            padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #667eea;
         }
 
-        .convention-card h4 {
-            margin-bottom: 15px;
-            font-size: 1.2em;
-            border-bottom: 2px solid rgba(255,255,255,0.3);
-            padding-bottom: 10px;
+        .convention-block h3 {
+            color: #667eea;
+            margin-bottom: 25px;
+            font-size: 1.5em;
         }
 
-        .convention-card ul {
+        .sub-section {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .sub-section:last-child {
+            border-bottom: none;
+        }
+
+        .sub-section h4 {
+            color: #333;
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+
+        .sub-section p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .sub-section ul {
             list-style: none;
+            padding-left: 0;
         }
 
-        .convention-card li {
-            margin-bottom: 10px;
+        .sub-section li {
+            color: #555;
+            margin-bottom: 8px;
             padding-left: 20px;
             position: relative;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
-        .convention-card li:before {
-            content: "▹";
+        .sub-section li:before {
+            content: "•";
             position: absolute;
             left: 0;
-            color: rgba(255,255,255,0.8);
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .sub-section ol {
+            padding-left: 20px;
+            color: #555;
+        }
+
+        .sub-section ol li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .sub-section ol li:before {
+            content: none;
         }
 
         code {
-            background: rgba(255,255,255,0.2);
-            padding: 2px 6px;
-            border-radius: 3px;
+            background: #e8eaf6;
+            color: #667eea;
+            padding: 3px 8px;
+            border-radius: 4px;
             font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        code.example {
+            display: block;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+            margin-top: 8px;
+            color: #333;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+            margin-top: 10px;
+        }
+
+        .note {
+            color: #667eea;
+            font-style: italic;
+            margin-top: 10px;
+        }
+
+        .sub-section strong {
+            color: #667eea;
         }
 
         .tag {
@@ -153,308 +222,349 @@
             <h2>📊 주요 기능 시퀀스 다이어그램</h2>
 
             <div class="sequence-item">
-                <h3>1. 사용자 인증 및 JWT 토큰 갱신 시스템</h3>
-                <p>Access Token과 Refresh Token을 활용한 이중 토큰 기반 인증 시스템입니다. 토큰 만료 시 자동 갱신 로직을 구현하여 사용자 경험을 개선했습니다.</p>
-                <div class="tag">인증/보안</div>
-                <div class="tag">JWT</div>
-                <div class="tag">Redis</div>
+                <h3>1. FOTA 업데이트 요청 및 배포 흐름</h3>
+                <p><strong>프로젝트:</strong> 링스쿨 FOTA (2024.03 - 2024.12)</p>
+                <p>대규모 디바이스를 대상으로 원격 펌웨어 업데이트를 수행하는 시스템입니다. 관리자가 업데이트를 요청하면 디바이스별 Task를 생성하고, MQTT를 통해 업데이트 명령을 전송하며, 실시간으로 진행 상태를 수집하고 동기화합니다.</p>
+                <div class="tag">FOTA</div>
+                <div class="tag">펌웨어 업데이트</div>
+                <div class="tag">MQTT</div>
+                <div class="tag">디바이스 관리</div>
                 <div class="mermaid">
 sequenceDiagram
-    participant C as Client
-    participant API as API Gateway
-    participant Auth as Auth Service
+    participant Admin as 관리자
+    participant API as FOTA API
     participant DB as Database
-    participant Redis as Redis Cache
+    participant MQTT as MQTT Broker
+    participant Device as IoT Device
 
-    C->>API: Login Request (ID/PW)
-    API->>Auth: Validate Credentials
-    Auth->>DB: Query User Info
-    DB-->>Auth: User Data
-    Auth->>Auth: Generate Access Token
-    Auth->>Auth: Generate Refresh Token
-    Auth->>Redis: Store Refresh Token
-    Redis-->>Auth: Success
-    Auth-->>API: Tokens + User Info
-    API-->>C: 200 OK (Tokens)
+    Admin->>API: 업데이트 요청 (펌웨어 버전, 대상 그룹)
+    API->>API: 요청 파라미터 검증
+    API->>DB: 대상 디바이스 목록 조회
+    DB-->>API: 디바이스 리스트
+    API->>DB: 상태 잠금 처리 (업데이트 중)
     
-    Note over C,Redis: ... 일정 시간 후 Access Token 만료 ...
+    loop 각 디바이스별
+        API->>DB: 업데이트 Task 생성
+    end
     
-    C->>API: API Request + Expired Access Token
-    API->>Auth: Verify Access Token
-    Auth-->>API: Token Expired Error
-    API-->>C: 401 Unauthorized
-    C->>API: Token Refresh Request + Refresh Token
-    API->>Auth: Validate Refresh Token
-    Auth->>Redis: Check Refresh Token
-    Redis-->>Auth: Token Valid
-    Auth->>Auth: Generate New Access Token
-    Auth-->>API: New Access Token
-    API-->>C: 200 OK (New Token)
+    API->>MQTT: 업데이트 명령 Publish
+    MQTT->>Device: 업데이트 명령 전달
+    Device->>Device: 펌웨어 다운로드 시작
+    Device->>MQTT: 진행 상태 이벤트 (다운로드 중)
+    MQTT->>API: 상태 이벤트 수신
+    API->>DB: 상태 테이블 업데이트
+    
+    Device->>Device: 펌웨어 설치
+    Device->>MQTT: 진행 상태 이벤트 (설치 중)
+    MQTT->>API: 상태 이벤트 수신
+    API->>DB: 상태 업데이트
+    
+    Device->>Device: 재부팅 및 검증
+    Device->>MQTT: 완료 이벤트
+    MQTT->>API: 완료 이벤트 수신
+    API->>DB: 완료 상태 업데이트
+    
+    API->>DB: 전체 배포 상태 확인
+    alt 모든 디바이스 완료
+        API->>DB: 배포 완료 처리
+        API-->>Admin: 배포 완료 알림
+    else 일부 실패
+        API-->>Admin: 부분 완료 알림
+    end
                 </div>
+                <p><strong>복잡 포인트:</strong> 동시 업데이트 트래픽 제어, 상태 정합성 유지, 부분 실패 허용 설계, 트랜잭션 분리 전략</p>
             </div>
 
             <div class="sequence-item">
-                <h3>2. 실시간 채팅 메시지 처리 및 알림 시스템</h3>
-                <p>WebSocket을 활용한 실시간 양방향 통신과 메시지 큐를 통한 비동기 알림 전송 시스템입니다. 사용자가 오프라인일 때도 메시지를 안정적으로 전달합니다.</p>
-                <div class="tag">실시간 통신</div>
-                <div class="tag">WebSocket</div>
-                <div class="tag">Message Queue</div>
+                <h3>2. FOTA 업데이트 실패 재처리 및 복구 흐름</h3>
+                <p><strong>프로젝트:</strong> 링스쿨 FOTA (2024.03 - 2024.12)</p>
+                <p>업데이트 실패 디바이스를 자동으로 탐지하고 재시도 정책에 따라 복구합니다. 일정 시간 동안 응답이 없는 디바이스를 감지하고, 재시도 가능 여부를 판단하여 자동 재전송하며, 최종 실패 시 롤백 대상으로 지정하고 운영자에게 알림을 전송합니다.</p>
+                <div class="tag">장애 복구</div>
+                <div class="tag">재시도 로직</div>
+                <div class="tag">롤백</div>
+                <div class="tag">모니터링</div>
                 <div class="mermaid">
 sequenceDiagram
-    participant S as Sender Client
-    participant WS as WebSocket Server
-    participant MQ as Message Queue
+    participant Scheduler as Scheduler Job
+    participant API as FOTA API
     participant DB as Database
-    participant Push as Push Notification
-    participant R as Receiver Client
+    participant MQTT as MQTT Broker
+    participant Device as Failed Device
+    participant Notification as 알림 시스템
 
-    S->>WS: Connect WebSocket
-    WS-->>S: Connection Established
-    R->>WS: Connect WebSocket
-    WS-->>R: Connection Established
+    Scheduler->>API: 실패 디바이스 체크 Trigger
+    API->>DB: 일정 시간 이상 미응답 디바이스 조회
+    DB-->>API: 실패 상태 디바이스 목록
     
-    S->>WS: Send Message
-    WS->>DB: Save Message
-    DB-->>WS: Message Saved
-    WS->>WS: Check Receiver Online Status
-    
-    alt Receiver is Online
-        WS->>R: Deliver Message (WebSocket)
-        R-->>WS: Message Received ACK
-        WS-->>S: Delivery Confirmation
-    else Receiver is Offline
-        WS->>MQ: Queue Message for Push
-        MQ->>Push: Send Push Notification
-        Push-->>MQ: Notification Sent
-        WS-->>S: Message Queued
+    loop 각 실패 디바이스
+        API->>DB: 재시도 횟수 조회
+        API->>API: 재시도 가능 여부 판단
+        
+        alt 재시도 가능
+            API->>DB: 재시도 카운트 증가
+            API->>MQTT: 업데이트 명령 재전송
+            MQTT->>Device: 재시도 명령 전달
+            Device->>MQTT: 상태 응답
+            MQTT->>API: 상태 이벤트 수신
+            API->>DB: 상태 업데이트
+            
+            alt 재시도 성공
+                API->>DB: 성공 상태로 변경
+            else 재시도 실패
+                API->>DB: 실패 사유 기록
+            end
+            
+        else 재시도 불가 (최대 횟수 초과)
+            API->>DB: 최종 실패 처리
+            API->>DB: 롤백 대상 지정
+            API->>Notification: 운영자 알림 발송
+            Notification-->>API: 알림 전송 완료
+        end
     end
     
-    Note over R: Receiver comes online
-    R->>WS: Reconnect WebSocket
-    WS->>DB: Get Unread Messages
-    DB-->>WS: Unread Messages List
-    WS->>R: Deliver Pending Messages
-    R-->>WS: All Messages ACK
+    API->>DB: 최종 상태 리포트 생성
+    API->>Notification: 상태 리포트 전송
+    Notification-->>API: 리포트 전송 완료
                 </div>
-            </div>
-
-            <div class="sequence-item">
-                <h3>3. 결제 처리 및 환불 로직 (PG 연동)</h3>
-                <p>외부 PG사와의 연동을 통한 결제 처리 시스템입니다. 트랜잭션 무결성 보장과 실패 시 롤백 처리를 구현했습니다.</p>
-                <div class="tag">결제</div>
-                <div class="tag">PG 연동</div>
-                <div class="tag">트랜잭션</div>
-                <div class="mermaid">
-sequenceDiagram
-    participant U as User
-    participant App as Application
-    participant PG as Payment Gateway
-    participant DB as Database
-    participant Admin as Admin System
-
-    U->>App: Initiate Payment
-    App->>DB: Create Order (Pending)
-    DB-->>App: Order ID
-    App->>PG: Request Payment
-    PG-->>U: Redirect to PG Page
-    U->>PG: Enter Payment Info
-    PG->>PG: Process Payment
-    
-    alt Payment Success
-        PG->>App: Payment Success Callback
-        App->>DB: Update Order (Completed)
-        App->>DB: Update Inventory
-        DB-->>App: Success
-        App-->>U: Payment Success Page
-    else Payment Failed
-        PG->>App: Payment Failed Callback
-        App->>DB: Update Order (Failed)
-        App-->>U: Payment Failed Page
-    end
-    
-    Note over U,Admin: ... 환불 요청 시나리오 ...
-    
-    U->>App: Request Refund
-    App->>DB: Check Order Status
-    DB-->>App: Order Details
-    App->>Admin: Create Refund Request
-    Admin-->>App: Approved
-    App->>PG: Request Refund
-    PG->>PG: Process Refund
-    PG-->>App: Refund Success
-    App->>DB: Update Order (Refunded)
-    App->>DB: Restore Inventory
-    App-->>U: Refund Completed
-                </div>
-            </div>
-
-            <div class="sequence-item">
-                <h3>4. 파일 업로드 및 이미지 리사이징 처리</h3>
-                <p>대용량 파일 업로드를 청크 단위로 처리하고, 업로드된 이미지를 여러 크기로 자동 리사이징하여 CDN에 배포하는 시스템입니다.</p>
-                <div class="tag">파일 처리</div>
-                <div class="tag">이미지 최적화</div>
-                <div class="tag">CDN</div>
-                <div class="mermaid">
-sequenceDiagram
-    participant C as Client
-    participant API as API Server
-    participant S3 as S3 Storage
-    participant Worker as Image Worker
-    participant CDN as CDN
-
-    C->>API: Upload File (Chunked)
-    loop For Each Chunk
-        API->>API: Validate Chunk
-        API->>S3: Upload Chunk to Temp
-        S3-->>API: Chunk Uploaded
-    end
-    
-    API->>S3: Merge Chunks
-    S3-->>API: Original File URL
-    API->>Worker: Queue Resize Job
-    Worker->>S3: Download Original
-    S3-->>Worker: Original Image
-    
-    par Parallel Resize
-        Worker->>Worker: Resize to Thumbnail (150x150)
-        Worker->>Worker: Resize to Medium (800x600)
-        Worker->>Worker: Resize to Large (1920x1080)
-    end
-    
-    Worker->>S3: Upload Thumbnail
-    Worker->>S3: Upload Medium
-    Worker->>S3: Upload Large
-    S3-->>Worker: All Uploads Complete
-    
-    Worker->>CDN: Invalidate Cache
-    CDN-->>Worker: Cache Cleared
-    Worker->>API: Processing Complete
-    API->>API: Update File Metadata in DB
-    API-->>C: Upload Success (All URLs)
-                </div>
-            </div>
-
-            <div class="sequence-item">
-                <h3>5. 데이터 동기화 및 충돌 해결 (Optimistic Locking)</h3>
-                <p>여러 사용자가 동시에 같은 데이터를 수정할 때 발생하는 충돌을 낙관적 락(Optimistic Locking)으로 처리하는 시스템입니다.</p>
-                <div class="tag">동시성 제어</div>
-                <div class="tag">충돌 해결</div>
-                <div class="tag">버전 관리</div>
-                <div class="mermaid">
-sequenceDiagram
-    participant U1 as User 1
-    participant U2 as User 2
-    participant API as API Server
-    participant DB as Database
-    participant Cache as Redis Cache
-
-    U1->>API: Get Document
-    API->>Cache: Check Cache
-    Cache-->>API: Cache Miss
-    API->>DB: Query Document (Version: 1)
-    DB-->>API: Document Data
-    API->>Cache: Store in Cache
-    API-->>U1: Document (Version: 1)
-    
-    U2->>API: Get Document
-    API->>Cache: Check Cache
-    Cache-->>API: Cache Hit
-    API-->>U2: Document (Version: 1)
-    
-    U1->>API: Update Document (Version: 1)
-    API->>DB: Update WHERE Version = 1
-    DB->>DB: Version 1 → 2
-    DB-->>API: Update Success (Version: 2)
-    API->>Cache: Invalidate Cache
-    API-->>U1: Update Success
-    
-    U2->>API: Update Document (Version: 1)
-    API->>DB: Update WHERE Version = 1
-    DB-->>API: Version Mismatch Error
-    API-->>U2: 409 Conflict
-    U2->>API: Get Latest Document
-    API->>DB: Query Document (Version: 2)
-    DB-->>API: Latest Document
-    API-->>U2: Document (Version: 2) + Conflict Info
-    U2->>U2: Merge Changes Manually
-    U2->>API: Update Document (Version: 2)
-    API->>DB: Update WHERE Version = 2
-    DB->>DB: Version 2 → 3
-    DB-->>API: Update Success
-    API-->>U2: Update Success
-                </div>
+                <p><strong>복잡 포인트:</strong> 재시도 정책 설계, 실패 유형 분류, 장기 미응답 디바이스 처리, 운영 안정성 확보</p>
             </div>
         </div>
 
         <div class="section">
             <h2>📝 협업 코드 컨벤션</h2>
             
-            <div class="convention-list">
-                <div class="convention-card">
-                    <h4>🔤 Naming Convention</h4>
-                    <ul>
-                        <li>변수명: <code>camelCase</code> 사용</li>
-                        <li>상수: <code>UPPER_SNAKE_CASE</code> 사용</li>
-                        <li>클래스/컴포넌트: <code>PascalCase</code> 사용</li>
-                        <li>파일명: <code>kebab-case</code> 또는 <code>PascalCase</code></li>
-                        <li>Boolean 변수: <code>is</code>, <code>has</code>, <code>should</code> 접두사 사용</li>
-                    </ul>
+            <div class="convention-detail">
+                <div class="convention-block">
+                    <h3>🧩 Naming Convention</h3>
+                    
+                    <div class="sub-section">
+                        <h4>▶ 변수명</h4>
+                        <p><code>camelCase</code> 사용</p>
+                        <code class="example">deviceStatus, retryCount</code>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>▶ 클래스 / 컴포넌트</h4>
+                        <p><code>PascalCase</code> 사용</p>
+                        <code class="example">FirmwareUpdateService, DeviceStatusHandler</code>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>▶ Boolean 변수</h4>
+                        <p>상태가 명확히 드러나도록 동사형 접두어 사용</p>
+                        <code class="example">isActive, hasPermission, shouldRetry</code>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>▶ DB 컬럼</h4>
+                        <p><code>snake_case</code> 사용</p>
+                        <code class="example">integration_device_id, last_seen_at</code>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>▶ Enum / 상수</h4>
+                        <p><code>UPPER_SNAKE_CASE</code></p>
+                        <code class="example">MAX_RETRY_COUNT, DEFAULT_TIMEOUT</code>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>▶ 메서드</h4>
+                        <p>동사 + 도메인 중심 네이밍</p>
+                        <code class="example">requestFirmwareUpdate(), syncDeviceStatus()</code>
+                    </div>
                 </div>
 
-                <div class="convention-card">
-                    <h4>🌿 Git Branch Strategy</h4>
-                    <ul>
-                        <li><code>main</code>: 프로덕션 배포용</li>
-                        <li><code>develop</code>: 개발 통합 브랜치</li>
-                        <li><code>feature/기능명</code>: 새 기능 개발</li>
-                        <li><code>bugfix/버그명</code>: 버그 수정</li>
-                        <li><code>hotfix/이슈명</code>: 긴급 수정</li>
-                    </ul>
+                <div class="convention-block">
+                    <h3>🌿 Git Branch Strategy</h3>
+                    
+                    <div class="sub-section">
+                        <h4>▶ main</h4>
+                        <p>운영(Production) 배포 브랜치</p>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>▶ develop</h4>
+                        <p>통합 개발 브랜치</p>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>▶ 개발 흐름</h4>
+                        <ol>
+                            <li>local 환경에서 develop 기준으로 브랜치 생성</li>
+                            <li>기능 개발 완료 후 develop으로 PR 생성</li>
+                            <li>검증 완료 후 develop → main PR 진행</li>
+                            <li>main 머지 시 운영 배포</li>
+                        </ol>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>▶ 브랜치 예시</h4>
+                        <pre>develop → feature/fota-retry
+develop → feature/device-sync</pre>
+                        <p class="note">단순한 구조로 충돌 최소화 및 배포 안정성 확보</p>
+                    </div>
                 </div>
 
-                <div class="convention-card">
-                    <h4>💬 Commit Message</h4>
-                    <ul>
-                        <li><code>feat:</code> 새로운 기능 추가</li>
-                        <li><code>fix:</code> 버그 수정</li>
-                        <li><code>docs:</code> 문서 수정</li>
-                        <li><code>style:</code> 코드 포맷팅</li>
-                        <li><code>refactor:</code> 코드 리팩토링</li>
-                        <li><code>test:</code> 테스트 코드 추가/수정</li>
-                    </ul>
+                <div class="convention-block">
+                    <h3>💬 Commit Message</h3>
+                    
+                    <div class="sub-section">
+                        <h4>▶ 기본 규칙</h4>
+                        <ul>
+                            <li>변경 유형을 명확히 한글로 구분</li>
+                            <li>무엇이 바뀌었는지 바로 이해 가능하도록 작성</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>▶ 형식</h4>
+                        <pre>[추가] FOTA 업데이트 재시도 로직 구현
+[수정] 디바이스 상태 동기화 트랜잭션 분리
+[수정] 배치 메모리 누수 이슈 개선
+[추가] 관리자용 테스트 API 등록</pre>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>▶ 원칙</h4>
+                        <ul>
+                            <li>한 커밋 = 하나의 의미 있는 변경</li>
+                            <li>메시지만 보고 변경 의도 파악 가능해야 함</li>
+                        </ul>
+                    </div>
                 </div>
 
-                <div class="convention-card">
-                    <h4>📁 Directory Structure</h4>
-                    <ul>
-                        <li><code>/components</code>: 재사용 가능한 컴포넌트</li>
-                        <li><code>/pages</code> or <code>/views</code>: 페이지 컴포넌트</li>
-                        <li><code>/utils</code> or <code>/helpers</code>: 유틸리티 함수</li>
-                        <li><code>/services</code> or <code>/api</code>: API 호출 로직</li>
-                        <li><code>/constants</code>: 상수 정의</li>
-                    </ul>
+                <div class="convention-block">
+                    <h3>📁 Directory Structure</h3>
+                    
+                    <div class="sub-section">
+                        <h4>▶ 도메인 중심 구조 + 계층 분리</h4>
+                        <pre>com.company.project
+ └── device
+     ├── api
+     ├── service
+     ├── domain
+     ├── repository
+     └── batch
+ └── firmware
+ └── auth
+ └── common</pre>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>▶ 원칙</h4>
+                        <ul>
+                            <li>기능 단위로 패키지 분리</li>
+                            <li>도메인 내부에서 역할별 계층 유지</li>
+                            <li>모듈 확장 시 구조 그대로 분리 가능</li>
+                        </ul>
+                    </div>
                 </div>
 
-                <div class="convention-card">
-                    <h4>✨ Code Style</h4>
-                    <ul>
-                        <li>들여쓰기: 스페이스 2칸 또는 4칸</li>
-                        <li>문자열: 일관된 따옴표 사용 ('' 또는 "")</li>
-                        <li>세미콜론: 일관된 사용 여부</li>
-                        <li>줄 길이: 최대 80~120자</li>
-                        <li>함수 길이: 최대 50줄 이내 권장</li>
-                    </ul>
+                <div class="convention-block">
+                    <h3>✨ Code Style</h3>
+                    
+                    <div class="sub-section">
+                        <h4>▶ 트랜잭션 명확화</h4>
+                        <ul>
+                            <li>Service 계층에서만 트랜잭션 관리</li>
+                            <li>읽기/쓰기 분리</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>▶ 로직 책임 분리</h4>
+                        <ul>
+                            <li><strong>Controller:</strong> 요청 검증 / 매핑</li>
+                            <li><strong>Service:</strong> 비즈니스 로직</li>
+                            <li><strong>Repository:</strong> 조회 책임</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>▶ 로그 정책</h4>
+                        <p>운영 추적 가능하도록 Context 포함</p>
+                        <code class="example">deviceId, requestId, status</code>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>▶ 에러 처리</h4>
+                        <ul>
+                            <li>공통 ErrorCode Enum 관리</li>
+                            <li>명확한 예외 타입 사용</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>▶ 코드 복잡도 관리</h4>
+                        <ul>
+                            <li>하나의 메서드는 하나의 책임</li>
+                            <li>조건 분기 최소화</li>
+                        </ul>
+                    </div>
                 </div>
 
-                <div class="convention-card">
-                    <h4>📝 Comment & Documentation</h4>
-                    <ul>
-                        <li>함수 상단에 JSDoc 주석 작성</li>
-                        <li>복잡한 로직에는 설명 주석 추가</li>
-                        <li>TODO, FIXME 주석으로 작업 표시</li>
-                        <li>코드로 설명 가능한 부분은 주석 지양</li>
-                        <li>README.md 필수 작성</li>
-                    </ul>
+                <div class="convention-block">
+                    <h3>📝 Comment & Documentation</h3>
+                    
+                    <div class="sub-section">
+                        <h4>▶ Editor Fold 기반 구조화 주석 사용</h4>
+                        <pre>&lt;editor-fold desc="[POST][PROD] FOTA 업데이트 요청"&gt;
+@PostMapping("/firmware/update")
+public ResponseEntity&lt;BaseResponse&gt; requestFirmwareUpdate(
+    @Parameter(description = "펌웨어 업데이트 요청", required = true)
+    @RequestBody FirmwareUpdateRequest request
+) {
+    log.info("firmware.update.request deviceId={}", request.getDeviceId());
+    return firmwareService.requestUpdate(request);
+}
+&lt;/editor-fold&gt;
+
+&lt;editor-fold desc="[GET][TEST] 비관적 락 테스트"&gt;
+@GetMapping("/pessimistic")
+public ResponseEntity&lt;BaseCtlDto&gt; getIdPessimistic(
+    @Parameter(description = "낙관적 락", required = true)
+    @RequestParam("id") Long id
+) {
+    log.info("pessimistic.lock.example");
+    return labLackService.getIdPessimistic(id);
+}
+&lt;/editor-fold&gt;</pre>
+                        <p class="note">IDE에서 fold 기능을 통해 코드 블록을 접고 펼칠 수 있어 가독성이 향상됩니다.</p>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>▶ Controller / Service / Repository 동일 규칙 적용</h4>
+                        <ul>
+                            <li>기능 단위로 Fold 구분</li>
+                            <li>진입 방식 / 성격 / 기능 요약 명시</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>▶ Tag 규칙 예시</h4>
+                        <pre>[GET][PROD] 조회 API
+[POST][TEST] 검증용 API
+[BATCH][PROD] 정기 배치 작업
+[MQTT][EVENT] 상태 이벤트 처리</pre>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>▶ 주석 원칙</h4>
+                        <ul>
+                            <li>"왜 이렇게 했는지"만 기록</li>
+                            <li>코드 설명 주석 지양</li>
+                            <li>운영 이슈 / 히스토리 추적 가능하게 작성</li>
+                        </ul>
+                    </div>
+
+                    <div class="sub-section">
+                        <h4>▶ README 필수</h4>
+                        <ul>
+                            <li>시스템 구조</li>
+                            <li>실행 방법</li>
+                            <li>운영 시 주의 사항</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
