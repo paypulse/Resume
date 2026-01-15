@@ -438,24 +438,46 @@ develop → feature/device-sync</pre>
                     
                     <div class="sub-section">
                         <h4>▶ 도메인 중심 구조 + 계층 분리</h4>
-                        <pre>com.company.project
- └── device
-     ├── api
-     ├── service
-     ├── domain
-     ├── repository
-     └── batch
- └── firmware
- └── auth
- └── common</pre>
+                        <pre>com.example.springconcurrencylab
+ ├── Api
+ │   ├── Base.Dto
+ │   ├── LabAsync
+ │   │   ├── Controller
+ │   │   │   └── LabAsyncController
+ │   │   ├── Dto
+ │   │   ├── Repository
+ │   │   └── Service
+ │   └── LabLack
+ │       ├── Controller
+ │       │   └── LabLackController
+ │       ├── Dto
+ │       ├── Repository
+ │       └── Service
+ ├── Config
+ │   ├── QuerydslConfig
+ │   └── SwaggerConfig
+ ├── Define
+ │   ├── EntityEnum
+ │   └── StatusCodeEnum
+ ├── Entity
+ ├── Utiles
+ └── WebUI
+     ├── LabAsync
+     │   └── LabAsyncView
+     ├── LabLack
+     │   └── LabLackView
+     └── Layout
+         ├── AdminLayout
+         └── AppStyle</pre>
                     </div>
 
                     <div class="sub-section">
                         <h4>▶ 원칙</h4>
                         <ul>
-                            <li>기능 단위로 패키지 분리</li>
-                            <li>도메인 내부에서 역할별 계층 유지</li>
-                            <li>모듈 확장 시 구조 그대로 분리 가능</li>
+                            <li>기능 단위로 패키지 분리 (LabAsync, LabLack)</li>
+                            <li>API와 WebUI를 최상위에서 분리</li>
+                            <li>도메인 내부에서 Controller, Service, Repository, Dto 계층 유지</li>
+                            <li>공통 기능은 Config, Define, Entity, Utiles로 관리</li>
                         </ul>
                     </div>
                 </div>
@@ -474,7 +496,9 @@ develop → feature/device-sync</pre>
                     <div class="sub-section">
                         <h4>▶ 로그 정책</h4>
                         <p>운영 추적 가능하도록 Context 포함</p>
-                        <code class="example">deviceId, requestId, status</code>
+                        <code class="example">log.info("update.classStatus.{}", updateStatue);
+log.info("device.status deviceId={}, status={}", deviceId, status);
+log.info("firmware.update.request requestId={}", requestId);</code>
                     </div>
 
                     <div class="sub-section">
