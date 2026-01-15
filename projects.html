@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사전 인터뷰</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .section {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+            font-size: 1.8em;
+        }
+
+        .sequence-item {
+            margin-bottom: 50px;
+        }
+
+        .sequence-item h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .sequence-item p {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .mermaid {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            overflow-x: auto;
+        }
+
+        .convention-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .convention-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .convention-card h4 {
+            margin-bottom: 15px;
+            font-size: 1.2em;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+        }
+
+        .convention-card ul {
+            list-style: none;
+        }
+
+        .convention-card li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .convention-card li:before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: rgba(255,255,255,0.8);
+        }
+
+        code {
+            background: rgba(255,255,255,0.2);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .convention-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💻 프로젝트 포트폴리오</h1>
+
+        <div class="section">
+            <h2>📊 주요 기능 시퀀스 다이어그램</h2>
+
+            <div class="sequence-item">
+                <h3>1. 사용자 인증 및 JWT 토큰 갱신 시스템</h3>
+                <p>Access Token과 Refresh Token을 활용한 이중 토큰 기반 인증 시스템입니다. 토큰 만료 시 자동 갱신 로직을 구현하여 사용자 경험을 개선했습니다.</p>
+                <div class="tag">인증/보안</div>
+                <div class="tag">JWT</div>
+                <div class="tag">Redis</div>
+                <div class="mermaid">
+sequenceDiagram
+    participant C as Client
+    participant API as API Gateway
+    participant Auth as Auth Service
+    participant DB as Database
+    participant Redis as Redis Cache
+
+    C->>API: Login Request (ID/PW)
+    API->>Auth: Validate Credentials
+    Auth->>DB: Query User Info
+    DB-->>Auth: User Data
+    Auth->>Auth: Generate Access Token
+    Auth->>Auth: Generate Refresh Token
+    Auth->>Redis: Store Refresh Token
+    Redis-->>Auth: Success
+    Auth-->>API: Tokens + User Info
+    API-->>C: 200 OK (Tokens)
+    
+    Note over C,Redis: ... 일정 시간 후 Access Token 만료 ...
+    
+    C->>API: API Request + Expired Access Token
+    API->>Auth: Verify Access Token
+    Auth-->>API: Token Expired Error
+    API-->>C: 401 Unauthorized
+    C->>API: Token Refresh Request + Refresh Token
+    API->>Auth: Validate Refresh Token
+    Auth->>Redis: Check Refresh Token
+    Redis-->>Auth: Token Valid
+    Auth->>Auth: Generate New Access Token
+    Auth-->>API: New Access Token
+    API-->>C: 200 OK (New Token)
+                </div>
+            </div>
+
+            <div class="sequence-item">
+                <h3>2. 실시간 채팅 메시지 처리 및 알림 시스템</h3>
+                <p>WebSocket을 활용한 실시간 양방향 통신과 메시지 큐를 통한 비동기 알림 전송 시스템입니다. 사용자가 오프라인일 때도 메시지를 안정적으로 전달합니다.</p>
+                <div class="tag">실시간 통신</div>
+                <div class="tag">WebSocket</div>
+                <div class="tag">Message Queue</div>
+                <div class="mermaid">
+sequenceDiagram
+    participant S as Sender Client
+    participant WS as WebSocket Server
+    participant MQ as Message Queue
+    participant DB as Database
+    participant Push as Push Notification
+    participant R as Receiver Client
+
+    S->>WS: Connect WebSocket
+    WS-->>S: Connection Established
+    R->>WS: Connect WebSocket
+    WS-->>R: Connection Established
+    
+    S->>WS: Send Message
+    WS->>DB: Save Message
+    DB-->>WS: Message Saved
+    WS->>WS: Check Receiver Online Status
+    
+    alt Receiver is Online
+        WS->>R: Deliver Message (WebSocket)
+        R-->>WS: Message Received ACK
+        WS-->>S: Delivery Confirmation
+    else Receiver is Offline
+        WS->>MQ: Queue Message for Push
+        MQ->>Push: Send Push Notification
+        Push-->>MQ: Notification Sent
+        WS-->>S: Message Queued
+    end
+    
+    Note over R: Receiver comes online
+    R->>WS: Reconnect WebSocket
+    WS->>DB: Get Unread Messages
+    DB-->>WS: Unread Messages List
+    WS->>R: Deliver Pending Messages
+    R-->>WS: All Messages ACK
+                </div>
+            </div>
+
+            <div class="sequence-item">
+                <h3>3. 결제 처리 및 환불 로직 (PG 연동)</h3>
+                <p>외부 PG사와의 연동을 통한 결제 처리 시스템입니다. 트랜잭션 무결성 보장과 실패 시 롤백 처리를 구현했습니다.</p>
+                <div class="tag">결제</div>
+                <div class="tag">PG 연동</div>
+                <div class="tag">트랜잭션</div>
+                <div class="mermaid">
+sequenceDiagram
+    participant U as User
+    participant App as Application
+    participant PG as Payment Gateway
+    participant DB as Database
+    participant Admin as Admin System
+
+    U->>App: Initiate Payment
+    App->>DB: Create Order (Pending)
+    DB-->>App: Order ID
+    App->>PG: Request Payment
+    PG-->>U: Redirect to PG Page
+    U->>PG: Enter Payment Info
+    PG->>PG: Process Payment
+    
+    alt Payment Success
+        PG->>App: Payment Success Callback
+        App->>DB: Update Order (Completed)
+        App->>DB: Update Inventory
+        DB-->>App: Success
+        App-->>U: Payment Success Page
+    else Payment Failed
+        PG->>App: Payment Failed Callback
+        App->>DB: Update Order (Failed)
+        App-->>U: Payment Failed Page
+    end
+    
+    Note over U,Admin: ... 환불 요청 시나리오 ...
+    
+    U->>App: Request Refund
+    App->>DB: Check Order Status
+    DB-->>App: Order Details
+    App->>Admin: Create Refund Request
+    Admin-->>App: Approved
+    App->>PG: Request Refund
+    PG->>PG: Process Refund
+    PG-->>App: Refund Success
+    App->>DB: Update Order (Refunded)
+    App->>DB: Restore Inventory
+    App-->>U: Refund Completed
+                </div>
+            </div>
+
+            <div class="sequence-item">
+                <h3>4. 파일 업로드 및 이미지 리사이징 처리</h3>
+                <p>대용량 파일 업로드를 청크 단위로 처리하고, 업로드된 이미지를 여러 크기로 자동 리사이징하여 CDN에 배포하는 시스템입니다.</p>
+                <div class="tag">파일 처리</div>
+                <div class="tag">이미지 최적화</div>
+                <div class="tag">CDN</div>
+                <div class="mermaid">
+sequenceDiagram
+    participant C as Client
+    participant API as API Server
+    participant S3 as S3 Storage
+    participant Worker as Image Worker
+    participant CDN as CDN
+
+    C->>API: Upload File (Chunked)
+    loop For Each Chunk
+        API->>API: Validate Chunk
+        API->>S3: Upload Chunk to Temp
+        S3-->>API: Chunk Uploaded
+    end
+    
+    API->>S3: Merge Chunks
+    S3-->>API: Original File URL
+    API->>Worker: Queue Resize Job
+    Worker->>S3: Download Original
+    S3-->>Worker: Original Image
+    
+    par Parallel Resize
+        Worker->>Worker: Resize to Thumbnail (150x150)
+        Worker->>Worker: Resize to Medium (800x600)
+        Worker->>Worker: Resize to Large (1920x1080)
+    end
+    
+    Worker->>S3: Upload Thumbnail
+    Worker->>S3: Upload Medium
+    Worker->>S3: Upload Large
+    S3-->>Worker: All Uploads Complete
+    
+    Worker->>CDN: Invalidate Cache
+    CDN-->>Worker: Cache Cleared
+    Worker->>API: Processing Complete
+    API->>API: Update File Metadata in DB
+    API-->>C: Upload Success (All URLs)
+                </div>
+            </div>
+
+            <div class="sequence-item">
+                <h3>5. 데이터 동기화 및 충돌 해결 (Optimistic Locking)</h3>
+                <p>여러 사용자가 동시에 같은 데이터를 수정할 때 발생하는 충돌을 낙관적 락(Optimistic Locking)으로 처리하는 시스템입니다.</p>
+                <div class="tag">동시성 제어</div>
+                <div class="tag">충돌 해결</div>
+                <div class="tag">버전 관리</div>
+                <div class="mermaid">
+sequenceDiagram
+    participant U1 as User 1
+    participant U2 as User 2
+    participant API as API Server
+    participant DB as Database
+    participant Cache as Redis Cache
+
+    U1->>API: Get Document
+    API->>Cache: Check Cache
+    Cache-->>API: Cache Miss
+    API->>DB: Query Document (Version: 1)
+    DB-->>API: Document Data
+    API->>Cache: Store in Cache
+    API-->>U1: Document (Version: 1)
+    
+    U2->>API: Get Document
+    API->>Cache: Check Cache
+    Cache-->>API: Cache Hit
+    API-->>U2: Document (Version: 1)
+    
+    U1->>API: Update Document (Version: 1)
+    API->>DB: Update WHERE Version = 1
+    DB->>DB: Version 1 → 2
+    DB-->>API: Update Success (Version: 2)
+    API->>Cache: Invalidate Cache
+    API-->>U1: Update Success
+    
+    U2->>API: Update Document (Version: 1)
+    API->>DB: Update WHERE Version = 1
+    DB-->>API: Version Mismatch Error
+    API-->>U2: 409 Conflict
+    U2->>API: Get Latest Document
+    API->>DB: Query Document (Version: 2)
+    DB-->>API: Latest Document
+    API-->>U2: Document (Version: 2) + Conflict Info
+    U2->>U2: Merge Changes Manually
+    U2->>API: Update Document (Version: 2)
+    API->>DB: Update WHERE Version = 2
+    DB->>DB: Version 2 → 3
+    DB-->>API: Update Success
+    API-->>U2: Update Success
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📝 협업 코드 컨벤션</h2>
+            
+            <div class="convention-list">
+                <div class="convention-card">
+                    <h4>🔤 Naming Convention</h4>
+                    <ul>
+                        <li>변수명: <code>camelCase</code> 사용</li>
+                        <li>상수: <code>UPPER_SNAKE_CASE</code> 사용</li>
+                        <li>클래스/컴포넌트: <code>PascalCase</code> 사용</li>
+                        <li>파일명: <code>kebab-case</code> 또는 <code>PascalCase</code></li>
+                        <li>Boolean 변수: <code>is</code>, <code>has</code>, <code>should</code> 접두사 사용</li>
+                    </ul>
+                </div>
+
+                <div class="convention-card">
+                    <h4>🌿 Git Branch Strategy</h4>
+                    <ul>
+                        <li><code>main</code>: 프로덕션 배포용</li>
+                        <li><code>develop</code>: 개발 통합 브랜치</li>
+                        <li><code>feature/기능명</code>: 새 기능 개발</li>
+                        <li><code>bugfix/버그명</code>: 버그 수정</li>
+                        <li><code>hotfix/이슈명</code>: 긴급 수정</li>
+                    </ul>
+                </div>
+
+                <div class="convention-card">
+                    <h4>💬 Commit Message</h4>
+                    <ul>
+                        <li><code>feat:</code> 새로운 기능 추가</li>
+                        <li><code>fix:</code> 버그 수정</li>
+                        <li><code>docs:</code> 문서 수정</li>
+                        <li><code>style:</code> 코드 포맷팅</li>
+                        <li><code>refactor:</code> 코드 리팩토링</li>
+                        <li><code>test:</code> 테스트 코드 추가/수정</li>
+                    </ul>
+                </div>
+
+                <div class="convention-card">
+                    <h4>📁 Directory Structure</h4>
+                    <ul>
+                        <li><code>/components</code>: 재사용 가능한 컴포넌트</li>
+                        <li><code>/pages</code> or <code>/views</code>: 페이지 컴포넌트</li>
+                        <li><code>/utils</code> or <code>/helpers</code>: 유틸리티 함수</li>
+                        <li><code>/services</code> or <code>/api</code>: API 호출 로직</li>
+                        <li><code>/constants</code>: 상수 정의</li>
+                    </ul>
+                </div>
+
+                <div class="convention-card">
+                    <h4>✨ Code Style</h4>
+                    <ul>
+                        <li>들여쓰기: 스페이스 2칸 또는 4칸</li>
+                        <li>문자열: 일관된 따옴표 사용 ('' 또는 "")</li>
+                        <li>세미콜론: 일관된 사용 여부</li>
+                        <li>줄 길이: 최대 80~120자</li>
+                        <li>함수 길이: 최대 50줄 이내 권장</li>
+                    </ul>
+                </div>
+
+                <div class="convention-card">
+                    <h4>📝 Comment & Documentation</h4>
+                    <ul>
+                        <li>함수 상단에 JSDoc 주석 작성</li>
+                        <li>복잡한 로직에는 설명 주석 추가</li>
+                        <li>TODO, FIXME 주석으로 작업 표시</li>
+                        <li>코드로 설명 가능한 부분은 주석 지양</li>
+                        <li>README.md 필수 작성</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            sequence: {
+                diagramMarginX: 50,
+                diagramMarginY: 10,
+                actorMargin: 50,
+                width: 150,
+                height: 65,
+                boxMargin: 10,
+                boxTextMargin: 5,
+                noteMargin: 10,
+                messageMargin: 35
+            }
+        });
+    </script>
+</body>
+</html>
