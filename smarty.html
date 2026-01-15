@@ -7,132 +7,124 @@
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
 </head>
+
 <body class="min-h-screen bg-gradient-to-br from-cyan-50 via-yellow-50 to-orange-50">
 
-<!-- HEADER -->
-<div class="relative overflow-hidden bg-gradient-to-r from-cyan-400 via-teal-400 to-orange-300 text-white">
-  <div class="absolute inset-0 bg-black opacity-10"></div>
+<!-- HERO -->
+<section class="relative overflow-hidden bg-gradient-to-r from-cyan-400 via-teal-400 to-orange-300 text-white">
+  <div class="absolute inset-0 bg-black/10"></div>
+
   <div class="relative max-w-6xl mx-auto px-6 py-20">
     <div class="flex items-center gap-4 mb-6">
       <img src="images/smarty.png" class="w-24 h-24 object-contain"/>
       <h1 class="text-5xl font-bold">똑똑이</h1>
     </div>
-    <p class="text-2xl mb-4 font-semibold">
+
+    <p class="text-2xl mb-4 font-semibold text-cyan-50">
       어린이집·유치원 교사 및 학부모용 맞춤형 유아 놀이 큐레이션 AI
     </p>
+
     <p class="text-lg max-w-2xl">
       아이 개개인의 성향과 발달 수준을 반영한 맞춤형 교육 정보 제공 플랫폼
     </p>
-  </div>
-</div>
 
-<!-- TABS -->
-<div class="max-w-6xl mx-auto px-6 mt-8">
+    <div class="mt-6 inline-block bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold">
+      S&J Works
+    </div>
+  </div>
+</section>
+
+<!-- TAB NAV -->
+<div class="max-w-6xl mx-auto px-6 -mt-8 relative z-10">
   <div class="bg-white rounded-lg shadow-lg p-2 flex gap-2">
-    <button onclick="showTab('overview')" class="tab-btn active">프로젝트 소개</button>
-    <button onclick="showTab('features')" class="tab-btn">주요 기능</button>
-    <button onclick="showTab('tech')" class="tab-btn">기술 스택</button>
-    <button onclick="showTab('vision')" class="tab-btn">비전 & 성과</button>
+    <button class="tab-btn active" onclick="showTab('overview')">◎ 프로젝트 소개</button>
+    <button class="tab-btn" onclick="showTab('features')">☆ 주요 기능</button>
+    <button class="tab-btn" onclick="showTab('tech')">&lt;/&gt; 기술 스택</button>
+    <button class="tab-btn" onclick="showTab('vision')">🚀 비전 & 성과</button>
   </div>
 </div>
 
 <!-- CONTENT -->
-<div class="max-w-6xl mx-auto px-6 py-12">
+<main class="max-w-6xl mx-auto px-6 py-12 space-y-10">
 
-  <!-- OVERVIEW -->
-  <section id="overview" class="tab-content space-y-6">
-    <div class="bg-white rounded-xl shadow-lg p-8">
-      <h2 class="text-3xl font-bold mb-4">개발 배경</h2>
-      <p class="text-gray-700 leading-relaxed mb-3">
-        아이 관련 정보가 SNS와 커뮤니티에 흩어져 있어 필요한 정보를 제때 찾기 어렵다는 문제를 발견했습니다.
-      </p>
-      <p class="text-cyan-700 font-semibold mb-3">
-        "내 아이를 위한 사교육은 존재하지 않는다"
-      </p>
-      <p class="text-gray-700 leading-relaxed">
-        엄마이자 개발자의 입장에서 아이 맞춤형 정보를 제공하는 서비스를 만들고자 본 프로젝트를 시작했습니다.
-      </p>
+<!-- OVERVIEW -->
+<section id="overview" class="tab-content space-y-8">
+
+  <div class="bg-white rounded-xl shadow-lg p-8">
+    <h2 class="text-3xl font-bold mb-4 flex items-center gap-2">
+      💡 개발 배경
+    </h2>
+    <p class="text-gray-700 leading-relaxed mb-3">
+      아이 관련 정보가 SNS와 커뮤니티에 흩어져 있어 필요한 정보를 제때 찾기 어렵다는 문제를 발견했습니다.
+    </p>
+    <p class="text-cyan-700 font-semibold mb-3">
+      "내 아이를 위한 사교육은 존재하지 않는다"
+    </p>
+    <p class="text-gray-700 leading-relaxed">
+      엄마이자 개발자의 입장에서 아이 맞춤형 정보를 제공하는 서비스를 만들고자 본 프로젝트를 시작했습니다.
+    </p>
+  </div>
+
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="tab-content hidden space-y-6">
+  <div class="bg-white rounded-xl shadow-lg p-8">
+    <h2 class="text-3xl font-bold mb-6">⭐ 주요 기능</h2>
+    <ul class="space-y-4 text-gray-700">
+      <li>✔ 맞춤형 유아 놀이 큐레이션</li>
+      <li>✔ AI 기반 태그 매칭</li>
+      <li>✔ 통합 교육 정보 제공</li>
+      <li>✔ 공공/민간 데이터 연동</li>
+      <li>✔ 학부모 후기 커뮤니티</li>
+    </ul>
+  </div>
+</section>
+
+<!-- TECH -->
+<section id="tech" class="tab-content hidden space-y-6">
+  <div class="bg-white rounded-xl shadow-lg p-8">
+    <h2 class="text-3xl font-bold mb-6">💻 기술 스택</h2>
+    <div class="grid md:grid-cols-2 gap-6 text-gray-700">
+      <div><strong>Backend</strong><p>Spring Boot, Kotlin, QueryDSL, Batch</p></div>
+      <div><strong>Frontend</strong><p>Vue, Vite</p></div>
+      <div><strong>AI</strong><p>Drools, LLM</p></div>
+      <div><strong>Infra</strong><p>Docker, Jenkins, AWS</p></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FEATURES -->
-  <section id="features" class="tab-content hidden space-y-4">
-    <div class="bg-white rounded-xl shadow-lg p-8">
-      <h2 class="text-3xl font-bold mb-6">주요 기능</h2>
-      <ul class="space-y-3 text-gray-700">
-        <li>✔ 맞춤형 유아 놀이 큐레이션</li>
-        <li>✔ AI 기반 태그 매칭</li>
-        <li>✔ 통합 교육 정보 제공</li>
-        <li>✔ 공공/민간 데이터 연동</li>
-        <li>✔ 학부모 후기 커뮤니티</li>
-      </ul>
-    </div>
-  </section>
+<!-- VISION -->
+<section id="vision" class="tab-content hidden space-y-6">
+  <div class="bg-white rounded-xl shadow-lg p-8">
+    <h2 class="text-3xl font-bold mb-6">🚀 비전</h2>
+    <ul class="space-y-3 text-gray-700">
+      <li>✔ 추천 알고리즘 고도화</li>
+      <li>✔ 공공 데이터 확장</li>
+      <li>✔ 전국 서비스 확장</li>
+    </ul>
+  </div>
+</section>
 
-  <!-- TECH -->
-  <section id="tech" class="tab-content hidden space-y-4">
-    <div class="bg-white rounded-xl shadow-lg p-8">
-      <h2 class="text-3xl font-bold mb-6">기술 스택</h2>
+</main>
 
-      <div class="grid md:grid-cols-2 gap-4 text-gray-700">
-        <div>
-          <h3 class="font-semibold mb-2">Backend</h3>
-          <p>Spring Boot, Kotlin, QueryDSL, Spring Batch</p>
-        </div>
-        <div>
-          <h3 class="font-semibold mb-2">Frontend</h3>
-          <p>Vue.js, Vite</p>
-        </div>
-        <div>
-          <h3 class="font-semibold mb-2">AI / Data</h3>
-          <p>Drools, LLM API, Crawling</p>
-        </div>
-        <div>
-          <h3 class="font-semibold mb-2">Infra</h3>
-          <p>Docker, Jenkins, AWS, Redis, MQTT</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- VISION -->
-  <section id="vision" class="tab-content hidden space-y-4">
-    <div class="bg-white rounded-xl shadow-lg p-8">
-      <h2 class="text-3xl font-bold mb-6">비전 & 향후 계획</h2>
-      <ul class="space-y-3 text-gray-700">
-        <li>✔ 공공 데이터 연계 확대</li>
-        <li>✔ 추천 알고리즘 고도화</li>
-        <li>✔ 전국 단위 서비스 확장</li>
-        <li>✔ UX 개선 및 실사용 데이터 확보</li>
-      </ul>
-    </div>
-  </section>
-
-</div>
-
-<!-- TAB SCRIPT -->
 <script>
-  function showTab(tabId) {
-    document.querySelectorAll('.tab-content').forEach(el => {
-      el.classList.add('hidden');
-    });
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
 
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.classList.remove('active');
-    });
-
-    document.getElementById(tabId).classList.remove('hidden');
-    event.target.classList.add('active');
-  }
-
-  // Button style
   document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.className += " flex-1 py-3 rounded-md font-medium transition bg-gray-100 hover:bg-gray-200";
+    btn.classList.remove('bg-cyan-500','text-white','shadow');
+    btn.classList.add('text-gray-600');
   });
 
-  document.querySelector('.tab-btn').classList.add("bg-cyan-500","text-white");
+  event.target.classList.add('bg-cyan-500','text-white','shadow');
+}
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.className += " flex-1 py-3 rounded-md font-medium transition hover:bg-gray-100";
+});
 </script>
 
 </body>
