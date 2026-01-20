@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로젝트 포트폴리오</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', sans-serif;
+            background: #0f0f1e;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="2" height="2" fill="white" opacity="0.1"/></svg>');
+            opacity: 0.3;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            color: white;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            color: rgba(255,255,255,0.9);
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .project-card {
+            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.5);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .company-info h2 {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .period {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.2);
+            color: #a8b7ff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.95em;
+            font-weight: 500;
+        }
+
+        .position {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .project-section {
+            margin-top: 35px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border-left: 3px solid #667eea;
+        }
+
+        .project-title {
+            font-size: 1.6em;
+            color: #fff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .project-title::before {
+            content: '⚡';
+            font-size: 1.2em;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+        }
+
+        .tech-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.5);
+        }
+
+        .features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features li {
+            padding: 15px 0 15px 35px;
+            position: relative;
+            line-height: 1.8;
+            color: #c0c0c0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .features li:last-child {
+            border-bottom: none;
+        }
+
+        .features li::before {
+            content: '▸';
+            position: absolute;
+            left: 10px;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .highlight {
+            background: linear-gradient(transparent 60%, rgba(102, 126, 234, 0.4) 60%);
+            color: #fff;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: rgba(255,255,255,0.9);
+            font-size: 1em;
+        }
+
+        .project-type {
+            display: inline-block;
+            background: rgba(118, 75, 162, 0.3);
+            color: #d4a5ff;
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin-left: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .project-card {
+                padding: 25px;
+            }
+
+            .project-title {
+                font-size: 1.3em;
+            }
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(102, 126, 234, 0.2);
+            color: #a8b7ff;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚀 프로젝트 포트폴리오</h1>
+        <p>실전 프로젝트 경험과 기술적 성과</p>
+    </div>
+
+    <div class="container">
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterProjects('all')">전체</button>
+            <button class="filter-btn" onclick="filterProjects('backend')">Backend</button>
+            <button class="filter-btn" onclick="filterProjects('fullstack')">Full-Stack</button>
+            <button class="filter-btn" onclick="filterProjects('ai')">AI/ML</button>
+            <button class="filter-btn" onclick="filterProjects('infra')">Infra</button>
+        </div>
+
+        <!-- 그립 프로젝트들 -->
+        <div class="project-card" data-category="backend ai">
+            <div class="project-header">
+                <div class="company-info">
+                    <h2>(주) 그립 (GRIB)</h2>
+                    <span class="position">백엔드 개발 · 대리</span>
+                </div>
+                <span class="period">2025.02 ~ 현재</span>
+            </div>
+
+            <div class="project-section">
+                <h3 class="project-title">링스쿨 백엔드 개발 및 운영<span class="project-type">운영 중</span></h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">Spring Boot</span>
+                    <span class="tech-badge">JPA</span>
+                    <span class="tech-badge">QueryDSL</span>
+                    <span class="tech-badge">REST API</span>
+                    <span class="tech-badge">MySQL</span>
+                </div>
+                <ul class="features">
+                    <li>사용자 상태 관리, 정책성 로직, <span class="highlight">인증/권한 관련 서버 로직 구현</span></li>
+                    <li><span class="highlight">JPA/QueryDSL</span>을 활용한 복잡한 데이터 조회 및 수정 로직 개발</li>
+                    <li>운영 환경 장애 이슈 <span class="highlight">실시간 모니터링 및 신속 대응</span></li>
+                    <li>레거시 시스템 분석 및 Shell Script 로직 개선</li>
+                </ul>
+            </div>
+
+            <div class="project-section">
+                <h3 class="project-title">IoT FOTA & Drools 룰 엔진 시스템<span class="project-type">신규 개발</span></h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">Spring Boot</span>
+                    <span class="tech-badge">FOTA</span>
+                    <span class="tech-badge">Drools</span>
+                    <span class="tech-badge">IoT</span>
+                    <span class="tech-badge">PostgreSQL</span>
+                    <span class="tech-badge">MySQL</span>
+                </div>
+
+                <div style="margin: 20px 0; padding: 20px; background: rgba(102, 126, 234, 0.1); border-radius: 10px; border-left: 4px solid #667eea;">
+                    <h4 style="color: #667eea; margin-bottom: 15px;">🔄 FOTA (Firmware Over-The-Air) 시스템</h4>
+                    <ul class="features">
+                        <li>IoT 디바이스 <span class="highlight">원격 펌웨어 업데이트</span> 시스템 설계 및 구현</li>
+                        <li>디바이스-서버 간 <span class="highlight">OTA 프로세스</span> 구현 (버전 확인 → 업데이트 발송 → 상태 대기 → 콜백)</li>
+                        <li>펌웨어 패키지 버전 관리 및 배포 이력 추적</li>
+                        <li>업데이트 성공/실패 히스토리 관리 및 롤백 지원</li>
+                    </ul>
+
+                    <div style="margin-top: 15px; padding: 15px; background: rgba(255,255,255,0.5); border-radius: 8px;">
+                        <strong>📊 데이터베이스 설계 (FOTA)</strong>
+                        <ul style="list-style: none; padding: 10px 0 0 20px; color: #555; font-size: 0.95em;">
+                            <li>• tb_device - 디바이스 정보 관리</li>
+                            <li>• tb_model - 디바이스 모델 정보</li>
+                            <li>• tb_function - 기능별 제어 정보</li>
+                            <li>• tb_package - 펌웨어 패키지 관리</li>
+                            <li>• tb_package_history - 배포 이력 추적</li>
+                            <li>• tb_status - 실시간 상태 관리</li>
+                            <li>• tb_status_history - 상태 변경 이력</li>
+                            <li>• tb_service - 서비스 콜백 설정</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="margin: 20px 0; padding: 20px; background: rgba(118, 75, 162, 0.1); border-radius: 10px; border-left: 4px solid #764ba2;">
+                    <h4 style="color: #764ba2; margin-bottom: 15px;">⚙️ Drools 룰 엔진 시스템</h4>
+                    <ul class="features">
+                        <li>비즈니스 규칙 기반 <span class="highlight">IoT 디바이스 자동 제어</span> 시스템 구현</li>
+                        <li>센서 데이터 기반 <span class="highlight">조건 검사 및 액션 트리거</span> 로직 개발</li>
+                        <li>규칙 생성 시 <span class="highlight">문자열/숫자 비교 규칙</span> 자동 적용 (match, greater than, less than 등)</li>
+                        <li>룰 수정 이력 관리 및 감사 로그 시스템</li>
+                        <li>외부 서비스 연동을 위한 Action 트리거 메커니즘</li>
+                    </ul>
+
+                    <div style="margin-top: 15px; padding: 15px; background: rgba(255,255,255,0.5); border-radius: 8px;">
+                        <strong>📊 데이터베이스 설계 (Drools)</strong>
+                        <ul style="list-style: none; padding: 10px 0 0 20px; color: #555; font-size: 0.95em;">
+                            <li>• tb_drools - 규칙 정의 및 조건 설정</li>
+                            <li>• tb_drools_modify_history - 규칙 수정 이력</li>
+                            <li>• tb_drools_audit_history - 룰 실행 감사 로그</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-top: 15px; padding: 15px; background: rgba(255,255,255,0.5); border-radius: 8px;">
+                        <strong>🎯 룰 생성 규칙</strong>
+                        <ul style="list-style: none; padding: 10px 0 0 20px; color: #555; font-size: 0.95em;">
+                            <li><strong>문자열 비교:</strong> match - function_value == 상수</li>
+                            <li><strong>숫자 비교:</strong></li>
+                            <li>&nbsp;&nbsp;• 초과 (greater than) - function_value > 상수</li>
+                            <li>&nbsp;&nbsp;• 이상 (greater than or equal to) - function_value >= 상수</li>
+                            <li>&nbsp;&nbsp;• 미만 (less than) - function_value < 상수</li>
+                            <li>&nbsp;&nbsp;• 이하 (less than or equal to) - function_value <= 상수</li>
+                            <li>&nbsp;&nbsp;• 일치 (equal to) - function_value == 상수</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="margin: 20px 0; padding: 20px; background: rgba(102, 126, 234, 0.05); border-radius: 10px;">
+                    <h4 style="color: #667eea; margin-bottom: 15px;">🏗️ 시스템 아키텍처 및 흐름</h4>
+                    <ul class="features">
+                        <li><span class="highlight">OTA 흐름:</span> 디바이스 업데이트 요청 → 버전 확인 → UPDATE 응답 → RESPONSE_STATUS 대기 → 성공/실패 콜백 → 히스토리 저장</li>
+                        <li><span class="highlight">Drools 흐름:</span> 센서 데이터 수신 → 조건 검사 → 액션 트리거 → 외부 서비스 연동 → 감사 로그 기록</li>
+                        <li>디바이스-모델-기능 3단계 구조로 <span class="highlight">확장 가능한 아키텍처</span> 설계</li>
+                        <li>상태 관리 및 이력 추적으로 <span class="highlight">시스템 안정성 및 추적성</span> 확보</li>
+                    </ul>
+                </div>
+
+                <div style="margin-top: 20px; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; color: white;">
+                    <h4 style="margin-bottom: 15px;">💡 핵심 성과</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 8px 0; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0;">✓</span>
+                            다중 디바이스 대상 원격 펌웨어 업데이트 자동화로 운영 효율성 향상
+                        </li>
+                        <li style="padding: 8px 0; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0;">✓</span>
+                            Drools 룰 엔진 기반 스마트 자동화로 실시간 IoT 제어 구현
+                        </li>
+                        <li style="padding: 8px 0; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0;">✓</span>
+                            체계적인 데이터베이스 설계로 확장성과 유지보수성 확보
+                        </li>
+                        <li style="padding: 8px 0; padding-left: 25px; position: relative;">
+                            <span style="position: absolute; left: 0;">✓</span>
+                            이력 관리 시스템으로 문제 추적 및 분석 역량 강화
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="project-section">
+                <h3 class="project-title">CCTV / 영상 관제 시스템 연동<span class="project-type">R&D</span></h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">NVR</span>
+                    <span class="tech-badge">Video Streaming</span>
+                    <span class="tech-badge">RTSP</span>
+                    <span class="tech-badge">API Integration</span>
+                </div>
+                <ul class="features">
+                    <li><span class="highlight">CCTV/NVR 기반 영상 스트리밍</span> 구조 분석 및 이해</li>
+                    <li>기존 영상 미러링 방식의 한계점 도출 및 <span class="highlight">개선 방향 제안</span></li>
+                    <li>영상 데이터 흐름(촬영 → 전송 → 서버 처리) 파이프라인 설계</li>
+                    <li>관제 시스템 백엔드 역할 정의 및 <span class="highlight">API 연계 구조 설계</span></li>
+                </ul>
+            </div>
+
+            <div class="project-section">
+                <h3 class="project-title">YOLO 기반 객체 탐지 R&D<span class="project-type">AI/ML</span></h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">YOLO</span>
+                    <span class="tech-badge">Computer Vision</span>
+                    <span class="tech-badge">Python</span>
+                    <span class="tech-badge">AI Pipeline</span>
+                </div>
+                <ul class="features">
+                    <li>CCTV 영상 데이터 활용 <span class="highlight">YOLO 객체 탐지 기술 R&D</span> 진행</li>
+                    <li>영상 분석 파이프라인 (영상 입력 → 탐지 → 데이터화) 구조 설계</li>
+                    <li><span class="highlight">PoC 및 기술 비교 분석</span>을 통한 실서비스 적용 가능성 검토</li>
+                    <li>AI 분석 결과를 서비스 로직에 연계하기 위한 <span class="highlight">데이터 모델 설계</span></li>
+                </ul>
+            </div>
+
+            <div class="project-section">
+                <h3 class="project-title">시스템 아키텍처 개선<span class="project-type">Architecture</span></h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">Multi Module</span>
+                    <span class="tech-badge">Spring Boot</span>
+                    <span class="tech-badge">Microservices</span>
+                </div>
+                <ul class="features">
+                    <li><span class="highlight">Spring Boot 멀티 모듈 구조</span> (Auth / API / AI 분리) 설계 및 구현</li>
+                    <li>단기 운영 요구사항과 장기 확장성을 동시 고려한 <span class="highlight">아키텍처 전략 수립</span></li>
+                    <li>서비스 고도화를 위한 모듈 분리 및 독립 배포 환경 구성</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 모카커뮤니케이션 프로젝트들 -->
+        <div class="project-card" data-category="backend infra">
+            <div class="project-header">
+                <div class="company-info">
+                    <h2>(주) 모카커뮤니케이션</h2>
+                    <span class="position">백엔드 개발 · 매니저</span>
+                </div>
+                <span class="period">2024.04 ~ 2024.12</span>
+            </div>
+
+            <div class="project-section">
+                <h3 class="project-title">베리콘 서비스 신규 개발<span class="project-type">신규</span></h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">Spring Boot</span>
+                    <span class="tech-badge">MySQL</span>
+                    <span class="tech-badge">Jenkins</span>
+                    <span class="tech-badge">AWS S3</span>
+                    <span class="tech-badge">REST API</span>
+                </div>
+                <ul class="features">
+                    <li><span class="highlight">어드민 인증·인가 기반 로그인 API</span> 설계 및 구현</li>
+                    <li>계정 관리 테이블 설계 및 보안 정책 적용</li>
+                    <li>Best 상품, 인기 상품 관리 기능 개발</li>
+                    <li>브랜드 모음전, 테마별 모음전 관리 기능 개발</li>
+                    <li><span class="highlight">견적 계산기 API</span> 설계 및 복잡한 비즈니스 로직 구현</li>
+                    <li>견적 보관함 관리 시스템 (DB 설계 + API 개발)</li>
+                </ul>
+            </div>
+
+            <div class="project-section">
+                <h3 class="project-title">Batch 시스템 구축 및 CI/CD<span class="project-type">DevOps</span></h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">Jenkins</span>
+                    <span class="tech-badge">Spring Batch</span>
+                    <span class="tech-badge">CI/CD</span>
+                    <span class="tech-badge">Shell Script</span>
+                </div>
+                <ul class="features">
+                    <li><span class="highlight">Jenkins 기반 Batch CI/CD 파이프라인</span> 구축 및 운영</li>
+                    <li>외부 연동 API 테스트 결과 이력 관리 시스템 개발</li>
+                    <li>테스트 결과 History 적재용 DB 설계 및 조회 API 구현</li>
+                    <li><span class="highlight">멀티 인스턴스 기반 Web Server 인프라</span> 구성</li>
+                </ul>
+            </div>
+
+            <div class="project-section">
+                <h3 class="project-title">운영 시스템 개선 및 자동화<span class="project-type">운영</span></h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">AWS S3</span>
+                    <span class="tech-badge">Shell Script</span>
+                    <span class="tech-badge">Spring Boot</span>
+                </div>
+                <ul class="features">
+                    <li><span class="highlight">AWS S3 로그 백업 자동화</span> 쉘 스크립트 개발</li>
+                    <li>DB 백업 자동화 스크립트 구현으로 운영 효율성 향상</li>
+                    <li>해피머니 망취소 API 개발 및 결제 프로세스 안정화</li>
+                    <li>MOS 사내 시스템 신규 메뉴 개발 (개인정보 파기, 연동 상품 누계 조회)</li>
+                    <li>Java 및 Spring 버전 업그레이드 수행</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 클릭앤터치 프로젝트들 -->
+        <div class="project-card" data-category="fullstack backend">
+            <div class="project-header">
+                <div class="company-info">
+                    <h2>(주) 클릭앤터치</h2>
+                    <span class="position">풀스택 개발 · 대리</span>
+                </div>
+                <span class="period">2022.07 ~ 2023.07</span>
+            </div>
+
+            <div class="project-section">
+                <h3 class="project-title">SK-GAS 사내 평가 시스템<span class="project-type">Enterprise</span></h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">Spring Boot</span>
+                    <span class="tech-badge">MSSQL</span>
+                    <span class="tech-badge">JSP</span>
+                    <span class="tech-badge">GitLab</span>
+                    <span class="tech-badge">Swagger</span>
+                </div>
+                <ul class="features">
+                    <li>사내 평가 시스템 (TDS1/2/3) <span class="highlight">전체 Admin 및 사용자 화면</span> 개발</li>
+                    <li>분기별 평가를 위한 API 설계 및 구현</li>
+                    <li><span class="highlight">대용량 평가 결과 파일 다운로드</span> 기능 설계 및 최적화</li>
+                    <li>평가 대상-CDP 직무 역량 매칭 <span class="highlight">자동화 시스템</span> 개발</li>
+                    <li>사내 <span class="highlight">GitLab 구축</span> 및 형상 관리 체계 구성</li>
+                    <li>Swagger 기반 API 문서화 및 연동 구조 설계</li>
+                    <li>운영계-개발계 Git 동기화 자동화 시스템 구축</li>
+                </ul>
+            </div>
+
+            <div class="project-section">
+                <h3 class="project-title">E-KORON 골프 정품 인증 시스템<span class="project-type">B2B</span></h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">Spring Boot</span>
+                    <span class="tech-badge">MySQL</span>
+                    <span class="tech-badge">JSP</span>
+                </div>
+                <ul class="features">
+                    <li>골프 정품 인증 관리 <span class="highlight">전체 시스템</span> 설계 및 개발</li>
+                    <li>Admin API 및 화면 구현</li>
+                    <li>DB 테이블 설계 및 데이터 관리 기능 개발</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 폴리엇 프로젝트들 -->
+        <div class="project-card" data-category="fullstack backend infra">
+            <div class="project-header">
+                <div class="company-info">
+                    <h2>(주) 폴리엇</h2>
+                    <span class="position">풀스택 개발 · 대리</span>
+                </div>
+                <span class="period">2021.11 ~ 2022.06</span>
+            </div>
+
+            <div class="project-section">
+                <h3 class="project-title">LSC 글로벌 서비스<span class="project-type">Global</span></h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">Spring Framework</span>
+                    <span class="tech-badge">PostgreSQL</span>
+                    <span class="tech-badge">Redis</span>
+                    <span class="tech-badge">Jeus</span>
+                    <span class="tech-badge">WebToB</span>
+                </div>
+                <ul class="features">
+                    <li>LSC 한국·중국 API 서비스 운영 및 <span class="highlight">글로벌 환경 관리</span></li>
+                    <li><span class="highlight">Redis 인프라 구축</span> 및 캐싱 전략 수립</li>
+                    <li><span class="highlight">JEUS 서버 구축</span> 및 WAS 환경 최적화</li>
+                    <li>프로젝트 구조 개선으로 <span class="highlight">유지보수성 40% 향상</span></li>
+                    <li><span class="highlight">Log4j 보안 취약점</span> 긴급 분석 및 패치 적용</li>
+                </ul>
+            </div>
+
+            <div class="project-section">
+                <h3 class="project-title">CPW 차량 설정 서비스<span class="project-type">Automotive</span></h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">Spring Framework</span>
+                    <span class="tech-badge">MySQL</span>
+                    <span class="tech-badge">JSP</span>
+                </div>
+                <ul class="features">
+                    <li>FRS 화면 / 차량 설정 화면 운영 및 API 테스트</li>
+                    <li>Mobile 화면 <span class="highlight">반응형 이슈 해결</span> 및 UI 개선</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 에듀랩 프로젝트들 -->
+        <div class="project-card" data-category="fullstack infra">
+            <div class="project-header">
+                <div class="company-info">
+                    <h2>(주) 에듀랩</h2>
+                    <span class="position">풀스택 개발 · 대리</span>
+                </div>
+                <span class="period">2021.06 ~ 2021.11</span>
+            </div>
+
+            <div class="project-section">
+                <h3 class="project-title">교과 토탈 CRM 시스템<span class="project-type">신규</span></h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">Spring Boot</span>
+                    <span class="tech-badge">Vue.js 2.0</span>
+                    <span class="tech-badge">PostgreSQL</span>
+                    <span class="tech-badge">Docker</span>
+                    <span class="tech-badge">Nexus3</span>
+                </div>
+                <ul class="features">
+                    <li>CRM 시스템 <span class="highlight">전체 아키텍처 설계</span> (프론트엔드 + 백엔드)</li>
+                    <li>Vue.js Component 구조 설계 및 재사용 가능한 UI 개발</li>
+                    <li><span class="highlight">Spring Security + JWT</span> 기반 인증 시스템 구현</li>
+                    <li>REST API 표준 설계 및 개발</li>
+                    <li><span class="highlight">Nexus3 Maven Repository</span> 구축 및 의존성 관리</li>
+                    <li><span class="highlight">On-Premise Docker</span> 환경 구축 및 컨테이너화</li>
+                    <li>리딩토탈 웹 서버 구축 및 운영 환경 세팅</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 에듀인소프트 프로젝트들 -->
+        <div class="project-card" data-category="fullstack backend">
+            <div class="project-header">
+                <div class="company-info">
+                    <h2>(주) 에듀인소프트</h2>
+                    <span class="position">풀스택 개발 · 대리</span>
+                </div>
+                <span class="period">2019.09 ~ 2020.08</span>
+            </div>
+
+            <div class="project-section">
+                <h3 class="project-title">학교 급식 시스템<span class="project-type">Public</span></h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">eGovFramework</span>
+                    <span class="tech-badge">PostgreSQL</span>
+                    <span class="tech-badge">JSP</span>
+                    <span class="tech-badge">jQTree</span>
+                    <span class="tech-badge">jqGrid</span>
+                </div>
+                <ul class="features">
+                    <li>학교 급식 시스템 <span class="highlight">전체 Admin/사용자 페이지</span> 개발</li>
+                    <li>전체 메뉴 화면 및 API 설계·구현</li>
+                    <li>시스템 운영 및 <span class="highlight">사용자 교육 동영상</span> 제작</li>
+                </ul>
+            </div>
+
+            <div class="project-section">
+                <h3 class="project-title">규제 샌드박스 프로젝트<span class="project-type">Government</span></h3>
+                <div class="tech-stack">
+                    <span class="tech-badge">eGovFramework</span>
+                    <span class="tech-badge">TIBERO</span>
+                    <span class="tech-badge">PLupload</span>
+                </div>
+                <ul class="features">
+                    <li>정부 규제 샌드박스 <span class="highlight">Admin 시스템
