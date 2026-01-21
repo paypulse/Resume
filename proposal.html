@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 튜터 시스템 개발 가이드</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .section h3 {
+            color: #764ba2;
+            font-size: 1.5em;
+            margin: 25px 0 15px 0;
+        }
+        
+        .card {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .flow-diagram {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+        
+        .flow-step {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        
+        .flow-step:hover {
+            transform: translateX(5px);
+            background: #e9ecef;
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .comparison-table tr:hover {
+            background: #e9ecef;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            margin: 5px 5px 5px 0;
+        }
+        
+        .dataset-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .dataset-list li {
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .dataset-list li:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+        
+        .dataset-list li strong {
+            color: #667eea;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .info {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        li {
+            margin: 8px 0;
+        }
+        
+        a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            .section h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 AI 튜터 시스템 개발 가이드</h1>
+            <p>초등학교 3학년 국어 과목 - RAG+LLM vs LLM 비교</p>
+        </header>
+        
+        <div class="content">
+            <!-- 프로젝트 개요 -->
+            <div class="section">
+                <h2>📋 프로젝트 개요</h2>
+                <div class="card">
+                    <h4>목표</h4>
+                    <p>초중고 각 학년별/과목별 스마트 교육을 위한 AI 튜터 시스템 개발</p>
+                </div>
+                
+                <div class="card">
+                    <h4>1차 미션 (초등 3학년 국어)</h4>
+                    <ul>
+                        <li>초등 3학년 국어 과목에 대한 수업 설계 및 교안 생성</li>
+                        <li>RAG+LLM과 LLM만 사용하는 경우의 결과 비교</li>
+                        <li>교육부 2022년 교육과정 고시 문서를 RAG 데이터셋으로 활용</li>
+                    </ul>
+                </div>
+                
+                <h3>AI 튜터 서비스 주요 기능</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 20px 0;">
+                    <div class="card">
+                        <h4>1. 수업 설계 및 교안</h4>
+                        <p>교육과정 기반 체계적인 수업 계획 수립</p>
+                    </div>
+                    <div class="card">
+                        <h4>2. AI 교육 자료</h4>
+                        <p>학습 수준에 맞는 맞춤형 자료 생성</p>
+                    </div>
+                    <div class="card">
+                        <h4>3. 개별 맞춤형 학습</h4>
+                        <p>학생별 학습 속도와 이해도 반영</p>
+                    </div>
+                    <div class="card">
+                        <h4>4. 퀴즈, 게임 및 자동 평가</h4>
+                        <p>재미있는 학습 경험과 즉각적 평가</p>
+                    </div>
+                    <div class="card">
+                        <h4>5. 실시간 피드백 및 분석</h4>
+                        <p>학습 과정 중 즉각적인 피드백 제공</p>
+                    </div>
+                    <div class="card">
+                        <h4>6. 개인별 학습 이력 관리</h4>
+                        <p>학습 진도와 성과 추적</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 시스템 아키텍처 플로우 -->
+            <div class="section">
+                <h2>🔄 시스템 아키텍처 플로우</h2>
+                
+                <h3>방법 1: RAG + LLM 방식</h3>
+                <div class="flow-diagram">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>데이터 수집</strong>
+                            <p>교육부 2022년 교육과정 고시 문서 다운로드 (아래한글 → PDF/DOC 변환)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>문서 전처리</strong>
+                            <p>PDF/DOC 파싱 → 텍스트 추출 → 초등 3학년 국어 부분 분리</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <strong>청킹(Chunking)</strong>
+                            <p>문서를 의미 단위로 분할 (500-1000 토큰 단위)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <strong>임베딩 생성</strong>
+                            <p>각 청크를 벡터로 변환 (OpenAI Embeddings, Sentence-BERT 등)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <strong>벡터 DB 저장</strong>
+                            <p>Pinecone, Chroma, FAISS 등에 임베딩 저장</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            <strong>사용자 질의</strong>
+                            <p>"초등 3학년 국어 1단원 수업 교안을 만들어줘"</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">7</div>
+                        <div class="step-content">
+                            <strong>유사도 검색</strong>
+                            <p>질의를 임베딩하여 벡터 DB에서 관련 문서 검색 (Top-K)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">8</div>
+                        <div class="step-content">
+                            <strong>컨텍스트 구성</strong>
+                            <p>검색된 문서 + 사용자 질의를 LLM 프롬프트로 구성</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">9</div>
+                        <div class="step-content">
+                            <strong>LLM 생성</strong>
+                            <p>GPT-4, Claude 등으로 교안 생성</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">10</div>
+                        <div class="step-content">
+                            <strong>결과 반환</strong>
+                            <p>교육과정 기반의 정확한 수업 교안 제공</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>방법 2: LLM 단독 방식</h3>
+                <div class="flow-diagram">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>사용자 질의</strong>
+                            <p>"초등 3학년 국어 1단원 수업 교안을 만들어줘"</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>LLM 직접 생성</strong>
+                            <p>LLM의 사전 학습 지식만으로 교안 생성</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <strong>결과 반환</strong>
+                            <p>일반적인 수업 교안 제공 (교육과정 정합성 낮을 수 있음)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- RAG 데이터셋 구축 -->
+            <div class="section">
+                <h2>📚 RAG 데이터셋 구축 가이드</h2>
+                
+                <h3>1. 데이터 소스</h3>
+                <div class="info">
+                    <strong>🔗 교육부 2022년 교육과정 고시</strong><br>
+                    <a href="https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&lev=0&statusYN=W&s=moe&m=0404&opType=N&boardSeq=93458" target="_blank">
+                        https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=141&lev=0&statusYN=W&s=moe&m=0404&opType=N&boardSeq=93458
+                    </a>
+                </div>
+                
+                <h3>2. 추출할 RAG 데이터 항목</h3>
+                <ul class="dataset-list">
+                    <li>
+                        <strong>📖 교과 성격 및 목표</strong>
+                        초등 3학년 국어 교과의 기본 방향, 학습 목표, 교육 철학
+                    </li>
+                    <li>
+                        <strong>📝 성취기준</strong>
+                        학년별·영역별 구체적인 학습 성취 기준 (듣기·말하기, 읽기, 쓰기, 문법, 문학)
+                    </li>
+                    <li>
+                        <strong>🎯 내용 체계</strong>
+                        단원별 학습 내용의 체계적 구조와 위계
+                    </li>
+                    <li>
+                        <strong>📋 교수·학습 방법</strong>
+                        권장 교수법, 학습 활동 예시, 교육 자료 활용법
+                    </li>
+                    <li>
+                        <strong>✅ 평가 지침</strong>
+                        평가 방법, 평가 기준, 피드백 방안
+                    </li>
+                    <li>
+                        <strong>📚 단원별 학습 요소</strong>
+                        각 단원의 핵심 개념, 학습 활동, 텍스트 예시
+                    </li>
+                </ul>
+                
+                <h3>3. 데이터 추출 단계별 가이드</h3>
+                
+                <div class="card">
+                    <h4>Step 1: 문서 다운로드 및 변환</h4>
+                    <div class="warning">
+                        <strong>⚠️ 중요!</strong> 아래한글(.hwp) 파일은 파싱이 어려울 수 있습니다. PDF 또는 DOC 형식으로 변환하는 것을 권장합니다.
+                    </div>
+                    <p><strong>변환 방법:</strong></p>
+                    <ul>
+                        <li>한글 프로그램에서 "다른 이름으로 저장" → PDF 또는 DOC 선택</li>
+                        <li>온라인 변환 도구 사용 (CloudConvert, Zamzar 등)</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>Step 2: PDF/DOC 파싱 (Python 예시)</h4>
+                    <div class="code-block">
+# PDF 파싱
+from PyPDF2 import PdfReader
+
+reader = PdfReader("교육과정_국어.pdf")
+text = ""
+for page in reader.pages:
+    text += page.extract_text()
+
+# DOC 파싱
+import docx
+doc = docx.Document("교육과정_국어.docx")
+text = ""
+for paragraph in doc.paragraphs:
+    text += paragraph.text + "\n"
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>Step 3: 초등 3학년 국어 부분 추출</h4>
+                    <p>전체 교육과정 문서에서 초등 3학년 국어 관련 부분만 필터링합니다.</p>
+                    <div class="code-block">
+import re
+
+# 초등 3학년 국어 섹션 찾기
+pattern = r"초등학교 3학년.*?국어.*?(?=초등학교 4학년|중학교)"
+grade3_korean = re.search(pattern, text, re.DOTALL)
+
+if grade3_korean:
+    grade3_text = grade3_korean.group(0)
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>Step 4: 의미 단위로 청킹(Chunking)</h4>
+                    <p>문서를 500-1000 토큰 단위로 분할하되, 문단이나 섹션 경계를 고려합니다.</p>
+                    <div class="code-block">
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=1000,
+    chunk_overlap=200,
+    separators=["\n\n", "\n", ". ", " ", ""]
+)
+
+chunks = text_splitter.split_text(grade3_text)
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>Step 5: 메타데이터 추가</h4>
+                    <p>각 청크에 학년, 과목, 영역, 단원 등의 메타데이터를 추가합니다.</p>
+                    <div class="code-block">
+documents = []
+for i, chunk in enumerate(chunks):
+    doc = {
+        "content": chunk,
+        "metadata": {
+            "grade": "3",
+            "subject": "국어",
+            "source": "교육부_2022_교육과정",
+            "chunk_id": i,
+            "section": extract_section(chunk)  # 섹션 자동 추출
+        }
+    }
+    documents.append(doc)
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h4>Step 6: 임베딩 및 벡터 DB 저장</h4>
+                    <div class="code-block">
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.vectorstores import Chroma
+
+embeddings = OpenAIEmbeddings()
+
+# Chroma 벡터 DB에 저장
+vectorstore = Chroma.from_texts(
+    texts=[doc["content"] for doc in documents],
+    embedding=embeddings,
+    metadatas=[doc["metadata"] for doc in documents],
+    persist_directory="./chroma_db"
+)
+                    </div>
+                </div>
+                
+                <h3>4. RAG 데이터 구조 예시</h3>
+                <div class="card">
+                    <h4>청크 예시</h4>
+                    <div class="code-block">
+{
+  "chunk_id": "grade3_korean_001",
+  "content": "초등학교 3학년 국어 교과는 학생들이 일상생활과 
+  학습에 필요한 국어 능력을 기르는 것을 목표로 한다. 듣기·말하기 
+  영역에서는 상대의 말을 주의 깊게 듣고 자신의 생각을 조리 있게 
+  표현하는 능력을 기른다...",
+  "metadata": {
+    "grade": "3",
+    "subject": "국어",
+    "section": "교과 목표",
+    "keywords": ["듣기", "말하기", "의사소통"],
+    "source": "교육부_2022_교육과정_p45-48"
+  }
+}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- RAG+LLM vs LLM 비교 -->
+            <div class="section">
+                <h2>⚖️ RAG+LLM vs LLM 비교</h2>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>비교 항목</th>
+                            <th>RAG + LLM</th>
+                            <th>LLM 단독</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>정확성</strong></td>
+                            <td>⭐⭐⭐⭐⭐ 교육과정 기반 정확한 내용</td>
+                            <td>⭐⭐⭐ 일반적 지식 기반 (hallucination 가능)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>교육과정 정합성</strong></td>
+                            <td>⭐⭐⭐⭐⭐ 2022 개정 교육과정 완벽 반영</td>
+                            <td>⭐⭐ 이전 교육과정 또는 불일치 가능</td>
+                        </tr>
+                        <tr>
+                            <td><strong>응답 속도</strong></td>
+                            <td>⭐⭐⭐ 검색 + 생성 시간 소요</td>
+                            <td>⭐⭐⭐⭐ 즉각적인 응답</td>
+                        </tr>
+                        <tr>
+                            <td><strong>구축 복잡도</strong></td>
+                            <td>⭐⭐ 벡터 DB, 임베딩 등 인프라 필요</td>
+                            <td>⭐⭐⭐⭐⭐ 간단한 API 호출</td>
+                        </tr>
+                        <tr>
+                            <td><strong>업데이트 용이성</strong></td>
+                            <td>⭐⭐⭐⭐⭐ 문서만 교체하면 즉시 반영</td>
+                            <td>⭐ 모델 재학습 필요</td>
+                        </tr>
+                        <tr>
+                            <td><strong>비용</strong></td>
+                            <td>⭐⭐⭐ 임베딩 + LLM 비용</td>
+                            <td>⭐⭐⭐⭐ LLM 비용만</td>
+                        </tr>
+                        <tr>
+                            <td><strong>맞춤형 대응</strong></td>
+                            <td>⭐⭐⭐⭐⭐ 학교별/교사별 자료 추가 가능</td>
+                            <td>⭐⭐ 일반적인 답변</td>
+                        </tr>
+                        <tr>
+                            <td><strong>출처 제공</strong></td>
+                            <td>⭐⭐⭐⭐⭐ 교육과정 페이지/섹션 명시</td>
+                            <td>⭐ 출처 불명확</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>평가 방법론</h3>
+                <div class="card">
+                    <h4>1. 정량적 평가</h4>
+                    <ul>
+                        <li><span class="highlight">성취기준 일치도</span>: 생성된 교안의 성취기준이 교육과정과 얼마나 일치하는가?</li>
+                        <li><span class="highlight">키워드 포함률</span>: 교육과정의 핵심 키워드가 교안에 포함되었는가?</li>
+                        <li><span class="highlight">Hallucination 비율</span>: 사실이 아닌 내용이 생성되는 비율</li>
+                        <li><span class="highlight">응답 시간</span>: 교안 생성에 소요되는 시간</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>2. 정성적 평가</h4>
+                    <ul>
+                        <li><span class="highlight">교육과정 정합성</span>: 현직 교사의 교육과정 부합도 평가</li>
+                        <li><span class="highlight">실용성</span>: 실제 수업에 바로 활용 가능한가?</li>
+                        <li><span class="highlight">창의성</span>: 다양하고 흥미로운 학습 활동 제안</li>
+                        <li><span class="highlight">완성도</span>: 교안의 구조와 내용이 체계적인가?</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h4>3. 테스트 시나리오</h4>
+                    <p>동일한 질의로 두 방식
