@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shin Minjeong - Backend Developer Resume</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px 50px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #1F4788;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #1F4788;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .contact-info {
+            font-size: 0.95em;
+            color: #666;
+            margin: 10px 0;
+        }
+
+        .contact-info a {
+            color: #0563C1;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .summary {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin: 30px 0;
+            border-left: 4px solid #1F4788;
+            font-size: 1.05em;
+            line-height: 1.7;
+        }
+
+        h2 {
+            color: #1F4788;
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #1F4788;
+        }
+
+        h3 {
+            color: #2E5C8A;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 8px;
+        }
+
+        h4 {
+            color: #333;
+            font-size: 1.1em;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 5px;
+        }
+
+        .job-title {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .job-period {
+            font-style: italic;
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .project-header {
+            font-weight: 600;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        .tech-stack {
+            font-style: italic;
+            color: #555;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        ul {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+
+        .skills-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .skills-table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+
+        .skills-table td:first-child {
+            background-color: #E7F0F7;
+            font-weight: 600;
+            width: 25%;
+        }
+
+        .github-stats {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .github-stats .stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 10px;
+        }
+
+        .github-stats .stat-item {
+            text-align: center;
+        }
+
+        .github-stats .stat-number {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #1F4788;
+        }
+
+        .github-stats .stat-label {
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        .education-item {
+            margin-bottom: 15px;
+        }
+
+        .education-title {
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .education-details {
+            color: #666;
+            font-size: 0.95em;
+            margin-top: 3px;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SHIN MINJEONG</h1>
+            <div class="contact-info">
+                📧 smjedu89@gmail.com | 📱 010-5153-2163
+            </div>
+            <div class="contact-info">
+                🐙 <a href="https://github.com/paypulse" target="_blank">GitHub</a> |
+                📝 <a href="https://paypulse.github.io" target="_blank">Personal Blog</a> |
+                📘 <a href="https://paypulse.github.io" target="_blank">Tech Blog</a>
+            </div>
+        </header>
+
+        <div class="github-stats">
+            <strong>GitHub Activity</strong>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">23</div>
+                    <div class="stat-label">Total Commits</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">13</div>
+                    <div class="stat-label">This Year</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Longest Streak (days)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary">
+            <strong>Backend Developer with 7 years of experience</strong> specializing in backend system design and operations. 
+            Proficient in REST API design with Spring Boot, data processing with JPA/QueryDSL, AWS infrastructure setup, 
+            and CI/CD pipeline configuration. Experienced in legacy system analysis and improvement, multi-module architecture design, 
+            and scalable system development.
+        </div>
+
+        <h2>CORE COMPETENCIES</h2>
+        <table class="skills-table">
+            <tr>
+                <td>Backend</td>
+                <td>Java, Kotlin, Spring Boot, Spring Framework, JPA, QueryDSL</td>
+            </tr>
+            <tr>
+                <td>Database</td>
+                <td>MySQL, PostgreSQL, MSSQL, Oracle, Redis</td>
+            </tr>
+            <tr>
+                <td>DevOps & Infra</td>
+                <td>AWS, Docker, Jenkins, Git, GitLab</td>
+            </tr>
+            <tr>
+                <td>Frontend</td>
+                <td>Vue.js, JSP, JavaScript</td>
+            </tr>
+        </table>
+
+        <h2>PROFESSIONAL EXPERIENCE</h2>
+
+        <h3>GRIB Co., Ltd.</h3>
+        <div class="job-header">
+            <span class="job-title">Backend Developer/Operations (Associate)</span>
+            <span class="job-period">Feb 2025 - Present</span>
+        </div>
+
+        <div class="project-header">Ringschool Backend Development & Operations</div>
+        <div class="tech-stack">Technologies: Spring Boot, JPA, QueryDSL, REST API</div>
+        <ul>
+            <li>Implemented user state management and authentication/authorization system server logic</li>
+            <li>Developed data query and modification logic using JPA/QueryDSL</li>
+            <li>Analyzed and responded to production environment issues in real-time</li>
+        </ul>
+
+        <div class="project-header">CCTV/Video Surveillance System Analysis & Integration</div>
+        <div class="tech-stack">Technologies: CCTV/NVR, Video Streaming, System Integration</div>
+        <ul>
+            <li>Analyzed CCTV/NVR-based video streaming architecture and reviewed improvement directions</li>
+            <li>Designed video data pipeline structure (recording → transmission → server processing)</li>
+            <li>Defined backend role and designed API integration structure for surveillance system</li>
+        </ul>
+
+        <div class="project-header">YOLO-based Object Detection R&D</div>
+        <div class="tech-stack">Technologies: YOLO, AI/ML, PoC</div>
+        <ul>
+            <li>Researched and reviewed YOLO object detection technology based on CCTV video data</li>
+            <li>Designed video analysis pipeline structure and reviewed feasibility for production service</li>
+            <li>Designed data model for integrating AI analysis results with service</li>
+        </ul>
+
+        <div class="project-header">System Architecture Improvement</div>
+        <ul>
+            <li>Designed Spring Boot multi-module structure (Auth/API/AI separation)</li>
+            <li>Analyzed legacy system and refactored undocumented code</li>
+            <li>Proposed architecture improvement plan considering short-term operations and long-term scalability</li>
+        </ul>
+
+        <h3>Moca Communication Co., Ltd.</h3>
+        <div class="job-header">
+            <span class="job-title">Backend Developer/Operations (Manager)</span>
+            <span class="job-period">Apr 2024 - Dec 2024 (8 months)</span>
+        </div>
+
+        <div class="project-header">Berrycon Service New Development</div>
+        <div class="tech-stack">Technologies: Spring Boot, AWS S3, Jenkins, Batch</div>
+        <ul>
+            <li>Developed admin system login API and account management table design</li>
+            <li>Developed product management APIs (Best products, Popular products, Brand collections)</li>
+            <li>Implemented core business logic for quotation calculator and quote storage</li>
+            <li>Built and operated Jenkins-based Batch CI/CD pipeline</li>
+            <li>Built external API test result history management system</li>
+        </ul>
+
+        <div class="project-header">Infrastructure & Operations Optimization</div>
+        <ul>
+            <li>Developed shell script for automated log backup using AWS S3</li>
+            <li>Configured multi-instance based web server infrastructure</li>
+            <li>Developed MOS (Management Operating Service) features including personal data deletion and forced error handling</li>
+        </ul>
+
+        <h3>Click & Touch Co., Ltd.</h3>
+        <div class="job-header">
+            <span class="job-title">Full-stack Developer (Associate)</span>
+            <span class="job-period">Jul 2022 - Jul 2023 (1 year)</span>
+        </div>
+
+        <div class="project-header">SK-GAS Internal Evaluation System</div>
+        <div class="tech-stack">Technologies: Spring Boot, MSSQL, GitLab, JSP</div>
+        <ul>
+            <li>Developed quarterly evaluation system (TDS1/TDS2/TDS3) admin and user interfaces</li>
+            <li>Designed and implemented large-scale evaluation result file download functionality</li>
+            <li>Built CDP job competency matching data automation system</li>
+            <li>Established GitLab-based internal configuration management system</li>
+            <li>Implemented Swagger-based API documentation and production-development Git synchronization</li>
+        </ul>
+
+        <div class="project-header">E-KORON System</div>
+        <div class="tech-stack">Technologies: Spring Boot, MySQL</div>
+        <ul>
+            <li>Designed and developed golf product authentication management admin menu</li>
+            <li>Designed database tables and implemented REST API</li>
+            <li>Modernized system through Java and Spring version upgrades</li>
+        </ul>
+
+        <h3>Polyot Co., Ltd.</h3>
+        <div class="job-header">
+            <span class="job-title">Full-stack Developer (Associate)</span>
+            <span class="job-period">Nov 2021 - Jun 2022 (6 months)</span>
+        </div>
+
+        <div class="project-header">LSC Global Service Operations</div>
+        <div class="tech-stack">Technologies: Spring Framework, PostgreSQL, Redis, JEUS</div>
+        <ul>
+            <li>Operated LSC Korea/China API services and handled global environment requirements</li>
+            <li>Built Redis and JEUS server and applied to service</li>
+            <li>Analyzed Log4j security vulnerability and applied emergency patch</li>
+            <li>Analyzed legacy project structure and improved maintainability</li>
+        </ul>
+
+        <h3>Edulab Co., Ltd.</h3>
+        <div class="job-header">
+            <span class="job-title">Full-stack Developer (Associate)</span>
+            <span class="job-period">Jun 2021 - Nov 2021 (5 months)</span>
+        </div>
+
+        <div class="project-header">Education Total CRM Platform</div>
+        <div class="tech-stack">Technologies: Spring Boot, Vue.js, Spring Security, JWT, Docker</div>
+        <ul>
+            <li>Designed Vue.js-based screen component structure and UI architecture</li>
+            <li>Implemented JWT-based Spring Security login authentication system</li>
+            <li>Built Nexus3-based internal Maven Repository</li>
+            <li>Built on-premise Docker system and configured container-based deployment environment</li>
+        </ul>
+
+        <h3>Eduinsoft Co., Ltd.</h3>
+        <div class="job-header">
+            <span class="job-title">Full-stack Developer (Associate)</span>
+            <span class="job-period">Sep 2019 - Aug 2020 (1 year)</span>
+        </div>
+
+        <div class="project-header">School Meal Service System</div>
+        <div class="tech-stack">Technologies: eGovFramework, PostgreSQL, JSP</div>
+        <ul>
+            <li>Implemented entire admin and user interface for school meal service system</li>
+            <li>Designed and implemented all menu APIs</li>
+            <li>Operated and maintained system after deployment</li>
+            <li>Created video manual for meal service system targeting end users</li>
+        </ul>
+
+        <div class="project-header">Regulatory Sandbox Admin System</div>
+        <div class="tech-stack">Technologies: eGovFramework, TIBERO, PLupload</div>
+        <ul>
+            <li>Implemented government regulatory sandbox application admin menu and API</li>
+            <li>Developed large file upload functionality using PLupload plugin</li>
+            <li>Designed and implemented multi-file upload functionality</li>
+        </ul>
+
+        <h3>Other Projects</h3>
+
+        <h4>Worldwise Software Co., Ltd. - SI Contractor (Associate)</h4>
+        <div class="job-period">Jul 2018 - Jan 2019 (7 months)</div>
+        <ul>
+            <li>Daehung Information - Bucheon City Parking Management System (TPMS): Implemented parking location lookup page with Daum Map API integration</li>
+            <li>CJ CheilJedang - On The Market Chatbot: Operated chatbot service and developed screen features</li>
+        </ul>
+
+        <h4>Spovill Co., Ltd. - UI Developer (Junior)</h4>
+        <div class="job-period">Dec 2015 - Apr 2016 (5 months)</div>
+        <div class="tech-stack">Technologies: Delphi 7.0, DirectX 9.0</div>
+        <ul>
+            <li>Operated and maintained PC client for sports betting game (Spoplay)</li>
+            <li>Performed language pack work and UI modifications</li>
+        </ul>
+
+        <h4>Qubit Security Co., Ltd. - Mobile Developer (Junior)</h4>
+        <div class="job-period">Aug 2015 - Jan 2016 (6 months)</div>
+        <div class="tech-stack">Technologies: PhoneGap, HTML/CSS/JS</div>
+        <ul>
+            <li>Developed mobile notification service app (PLURA) using PhoneGap</li>
+            <li>Translated company brochure to English</li>
+            <li>Attended beGlobal 2015 seminar and promoted developed app</li>
+        </ul>
+
+        <h4>iVextra Co., Ltd. - Game Developer (Junior)</h4>
+        <div class="job-period">Jan 2013 - May 2013 (5 months)</div>
+        <div class="tech-stack">Technologies: Unity3D, C#, NGUI</div>
+        <ul>
+            <li>Participated in educational game (GuguPang) development and added game effects/animations</li>
+            <li>Developed custom fonts for game</li>
+            <li>Designed UI using NGUI and performed Android build and deployment</li>
+        </ul>
+
+        <h2>SHORT-TERM PROJECTS</h2>
+        <ul>
+            <li><strong>Geniworks Co., Ltd. - Mallpie Service</strong> (2 months, Nov 2023 - Jan 2024)
+                <ul>
+                    <li>Developed Partner/Manager admin product registration and bulk upload features</li>
+                    <li>Implemented Spring Batch-based payment cancellation email/KakaoTalk message batch</li>
+                </ul>
+            </li>
+            <li><strong>TwoLineCode Co., Ltd. - SK Hynix Pipeline Service</strong> (3 months, Jan 2021 - Mar 2021)
+                <ul>
+                    <li>Analyzed and operated Docker-based pipeline service structure</li>
+                    <li>Developed API using Spring REST Docs-based TDD approach and documentation</li>
+                </ul>
+            </li>
+            <li><strong>Egam Co., Ltd. - Contract Management System</strong> (2 months, Oct 2020 - Dec 2020)
+                <ul>
+                    <li>Implemented contract management interface using Vue.js</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2>EDUCATION & CERTIFICATIONS</h2>
+
+        <div class="education-item">
+            <div class="education-title">Gachon University - Bachelor of Science in Computer Media Engineering</div>
+            <div class="education-details">Graduated: February 2012 | Location: Seongnam, Gyeonggi Province</div>
+            <div class="education-details">Completed core computer engineering curriculum</div>
+        </div>
+
+        <div class="education-item">
+            <div class="education-title">Engineer Information Processing (정보처리기사)</div>
+            <div class="education-details">Certification Date: May 8, 2015 | Certificate No.: 15201021028F</div>
+        </div>
+
+        <div class="education-item">
+            <div class="education-title">Game Development Training Program</div>
+            <div class="education-details">March 2015 - July 2015</div>
+            <div class="education-details">Completed training in C/C++, WinApi, DirectX 9.0, Unity3D basics</div>
+        </div>
+    </div>
+</body>
+</html>
